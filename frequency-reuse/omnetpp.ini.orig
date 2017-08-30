@@ -1,9 +1,16 @@
 [General]
+<<<<<<< HEAD
+=======
+network = OracleNetwork
+
+# General parameters.
+>>>>>>> b3d8009880f2a6006f4edcb6fe2bb37c564d5094
 image-path=../../images
 tkenv-plugin-path = ../../../inet/etc/plugins
 output-scalar-file-append = false
 debug-on-errors = false
 tkenv-default-config = 
+<<<<<<< HEAD
 sim-time-limit=5s
 warmup-period=0s
 repeat = 3
@@ -83,10 +90,92 @@ extends=Base
 # Traffic.
 **.ueCell[*].udpApp[0].typename = "UDPBasicApp"
 **.ueCell[*].udpApp[0].destAddresses = "ueCellRx[" + string(ancestorIndex(1)) + "]"
+=======
+print-undisposed = true
+
+# Statistic recording.
+**.vector-recording = false
+**.routingRecorder.enabled = false
+output-scalar-file = ${resultdir}/${configname}/${repetition}.sca
+output-vector-file = ${resultdir}/${configname}/${repetition}.vec
+
+# Simulation parameters.
+sim-time-limit=3s
+warmup-period=0.2s # Excludes first x seconds from statistic computation.
+repeat = 1
+seed-set = ${repetition}
+
+
+# Channel parameters.
+**.channelControl.pMax = 10W
+**.channelControl.alpha = 1.0
+**.channelControl.carrierFrequency = 2100e+6Hz
+**.nic.phy.channelModel=xmldoc("config_channel.xml")
+**.feedbackComputation = xmldoc("config_channel.xml")
+**.fbDelay = 1 
+
+# Mobility.
+**.mobility.constraintAreaMinZ = 0m
+**.mobility.constraintAreaMaxZ = 0m
+**.eNodeB.mobility.initFromDisplayString = false
+**.eNodeB.mobility.initialX = 300m
+**.eNodeB.mobility.initialY = 300m
+**.ue*.mobility.constraintAreaMaxX = 600m
+**.ue*.mobility.constraintAreaMaxY = 600m
+**.ue*.mobility.constraintAreaMinX = 0m
+**.ue*.mobility.constraintAreaMinY = 0m
+**.ue*.mobility.initFromDisplayString = false
+**.ue*.mobility.initialX = uniform(275m, 325m)
+**.ue*.mobility.initialY = uniform(275m, 325m)
+**.ue*.mobility.speed = 1mps
+**.ue*.mobilityType = "LinearMobility"
+
+# Resources.
+**.deployer.numRbDl = 6
+**.deployer.numRbUl = 6
+**.numBands = 6 
+# IMPORTANT: numBands MUST be equal to numRb*. numRb* is absolute, so this'll lead to each band having exactly 1 resource block.
+# You can treat bands as resource blocks now and ignore simuLTE's notion of resource blocks!
+**.rbAllocationType = "localized" # I think this means that contiguous resource blocks are allocated instead of ones distributed over the spectrum.
+**.usePreconfiguredTxParams = false # true -> undefined runtime error
+**.eNodeB.nic.phy.enableD2DCqiReporting = true # false -> out_of_range error.
+**.eNodeB.nic.d2dModeSelection = true
+**.d2dCqi = 7
+**.schedulingDisciplineDl = "MAX_DATARATE"
+**.schedulingDisciplineUl = "MAX_DATARATE"
+
+# Enable D2D.
+**.eNodeB.d2dCapable = true
+**.ueD2D*.d2dCapable = true
+**.amcMode = "D2D"
+**.eNodeB.nic.d2dModeSelection = true
+*.eNodeB.nic.d2dModeSelectionType = "D2DModeSelectionBestCqi"
+
+# General UE parameters.
+**.ue*.macCellId = 1
+**.ue*.masterId = 1 
+# UEs are now connected to the eNodeB.
+**.ue*.mobility.initFromDisplayString = false
+**.ue*.nic.phy.ueTxPower = 26   # UL Tx Power (in dB)
+**.ue*.nic.phy.d2dTxPower = 24.14973348 # 10*LOG10(260), for non-D2D-capable UEs this won't be set because they don't have the variable.
+
+# UE Apps.
+**.ue*.numUdpApps = 1
+**.ueD2DTx[*].udpApp[0].typename = "UDPBasicApp"
+**.ueD2DTx[*].udpApp[0].destAddresses = "ueD2DRx[" + string(ancestorIndex(1)) + "]"
+**.ueD2DTx[*].udpApp[0].destPort = 1000
+**.ueD2DTx[*].udpApp[0].sendInterval = 0.00025s # 0.25ms
+**.ueD2DTx[*].udpApp[0].messageLength = 65.507B
+**.ueD2DTx[*].nic.d2dPeerAddresses = "ueD2DRx[" + string(ancestorIndex(1)) + "]"
+
+**.ueCell[*].udpApp[0].typename = "UDPBasicApp"
+**.ueCell[*].udpApp[0].destAddresses = "server"
+>>>>>>> b3d8009880f2a6006f4edcb6fe2bb37c564d5094
 **.ueCell[*].udpApp[0].destPort = 1000
 **.ueCell[*].udpApp[0].sendInterval = 0.00025s # 0.25ms
 **.ueCell[*].udpApp[0].messageLength = 65.507B
 
+<<<<<<< HEAD
 **.ueD2DTx[*].udpApp[0].typename = "UDPBasicApp"
 **.ueD2DTx[*].udpApp[*].destAddresses = "ueD2DRx[" + string(ancestorIndex(1)) + "]"
 **.ueD2DTx[*].lteNic.d2dPeerAddresses = "ueD2DRx[" + string(ancestorIndex(1)) + "]"
@@ -108,3 +197,12 @@ extends=Base
 *.eNodeB.lteNic.phy.enableD2DCqiReporting = true
 **.usePreconfiguredTxParams = false
 **.d2dCqi = 7
+=======
+**.ueD2DRx[*].udpApp[0].typename = "UDPSink"
+**.ueD2DRx[*].udpApp[0].localPort = 1000 
+
+# Server apps.
+**.server.numUdpApps = 1
+**.server.udpApp[*].typename = "UDPSink"
+**.server.udpApp[*].localPort = 1000 
+>>>>>>> b3d8009880f2a6006f4edcb6fe2bb37c564d5094
