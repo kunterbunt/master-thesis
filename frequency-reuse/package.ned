@@ -58,9 +58,6 @@ network FrequencyNetwork
         ueD2DRx[numUeD2DRx]: Ue {
             @display("p=544,299");
         }
-        oracle: Oracle {
-            @display("p=784.8062,60.94375");
-        }
     connections:
         server.pppg++ <--> Eth10G <--> router.pppg++;
         router.pppg++ <--> Eth10G <--> pgw.filterGate;
