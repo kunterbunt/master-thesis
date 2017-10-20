@@ -1,0 +1,17 @@
+function plot_sum_rcvd_bytes(directory)
+    sumBytesVec = [];
+    for i = 0:8
+        filename = strcat(directory, 
+        strcat('N', strcat(int2str(i), strcat( '.parsed')));
+        receiverBytesVec = csvread(filename);
+        sumBytesVec = [sumBytesVec; sum(receiverBytesVec)];
+    end    
+    figure;
+    hold on;
+    plot(2:10, sumBytesVec);
+    xlabel('number of D2D pairs');
+    ylabel('sum of received bytes at all receivers');    
+    set(gca,'FontSize', 26)
+    title(directory, 'FontSize', 20);
+end
+
