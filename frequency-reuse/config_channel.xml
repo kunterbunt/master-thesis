@@ -48,6 +48,8 @@
             <parameter name="extCell-interference" type="bool" value="true"/>
 			<!-- if true, enables the multi-cell interference computation -->  
             <parameter name="multiCell-interference" type="bool" value="true"/>  
+            <!-- if true, enables the in-cell D2D interference computation -->  
+            <parameter name="inCellD2D-interference" type="bool" value="true"/>
         </ChannelModel>        
              
         <!-- Feedback Type (REAL, DUMMY) -->
