@@ -2,7 +2,7 @@ function plot_sum_rcvd_bytes(directory)
     sumBytesVec = [];
     errorVecPos = [];    
     errorVecNeg = [];
-    for i = 410:10:500
+    for i = 1:1
         reps = [];
         for j= 0:4
             filename = strcat(directory, 'd', int2str(i), '-rep', int2str(j), '.sca.parsed');
