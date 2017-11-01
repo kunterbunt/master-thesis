@@ -22,7 +22,7 @@ for i=1:size(cqis, 1)
     meanCqi = [meanCqi; mean(cqis(i,:))];    
     CIs = getCI(cqis(i,:), 0.95);
     errorCqiPos = [errorCqiPos; CIs(1) - mean(cqis(i,:))];
-    errorCqiNeg = [errorCqiNeg; mean(cqis(i,:)) - CIs(2)];
+    errorCqiNeg = [errorCqiNeg; mean(cqis(i,:)) - abs(CIs(2))];
 end
 
 sinrs = [
@@ -49,7 +49,7 @@ for i=1:size(sinrs, 1)
     meanSinr = [meanSinr; mean(sinrs(i,:))];
     CIs = getCI(sinrs(i,:), 0.95);
     errorSinrPos = [errorSinrPos; CIs(1) - mean(sinrs(i,:))];
-    errorSinrNeg = [errorSinrNeg; mean(sinrs(i,:)) - CIs(2)];
+    errorSinrNeg = [errorSinrNeg; mean(sinrs(i,:)) - abs(CIs(2))];
 end
 
 atts = [
@@ -76,7 +76,7 @@ for i=1:size(atts, 1)
     meanAtt = [meanAtt; mean(atts(i,:))];
     CIs = getCI(atts(i,:), 0.95);
     errorAttPos = [errorAttPos; CIs(1) - mean(atts(i,:))];
-    errorAttNeg = [errorAttNeg; mean(atts(i,:)) - CIs(2)];
+    errorAttNeg = [errorAttNeg; mean(atts(i,:)) - abs(CIs(2))];
 end
 
 figure
