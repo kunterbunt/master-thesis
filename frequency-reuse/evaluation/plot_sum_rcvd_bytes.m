@@ -1,10 +1,10 @@
-function plot_sum_rcvd_bytes(directory)
+function plot_sum_rcvd_bytes(directory, numReps)
     sumBytesVec = [];
     errorVecPos = [];    
     errorVecNeg = [];
-    for i = 1:1
+    for i = 310:10:400
         reps = [];
-        for j= 0:4
+        for j = 0:(numReps-1)
             filename = strcat(directory, 'd', int2str(i), '-rep', int2str(j), '.sca.parsed');
             receiverBytesVec = csvread(filename);
             reps = [reps; sum(receiverBytesVec)];
@@ -16,11 +16,15 @@ function plot_sum_rcvd_bytes(directory)
     end        
     figure;
     hold on;    
-    errorbar(10:10:100, sumBytesVec, errorVecNeg, errorVecPos);
+    e = errorbar(10:10:100, sumBytesVec, errorVecNeg, errorVecPos);
+    e.LineStyle = '--';
+    e.LineWidth = 1;
+    e.Marker = 'x';
+    e.MarkerSize = 8;
     %ylim([0, max(sumBytesVec)]);
-    xlabel('transmission distance [m]');
+    xlabel('pair distance [m]');
     ylabel('received bytes');    
     set(gca,'FontSize', 26)
-    title('Naive Round Robin, no reuse, 5 RBs', 'FontSize', 20);
+    title('Reuse Tester, 2pairs, 5RBs, 30s, 20reps', 'FontSize', 20);
 end
 
