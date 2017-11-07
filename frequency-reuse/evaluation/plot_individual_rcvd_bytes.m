@@ -2,22 +2,23 @@ function plot_individual_rcvd_bytes(directory, numRx, repetitions)
     rcvdBytesVec = zeros(numRx, repetitions);
     errorVecPos = [];    
     errorVecNeg = [];
-    for i = 1:1:1
+    for i = 310:10:310
         reps = [];
         for j= 0:(repetitions - 1)
-            filename = strcat(directory, 'N', int2str(i), '-rep', int2str(j), '.sca.parsed');
+%             filename = strcat(directory, 'd', int2str(i), '-rep', int2str(j), '.sca.parsed');
+            filename = strcat(directory, 'rep', int2str(j), '.sca.parsed');
             receiverBytesVec = csvread(filename);
             for k = 1:numRx
                 rcvdBytesVec(k,j+1) = receiverBytesVec(k);
             end
             reps = [reps; sum(receiverBytesVec)];
         end        
-%         rcvdBytesVec(1,:) % all repetitions for Rx1
-%         CI = getCI(reps, 0.95);                
-%         errorVecPos = [errorVecPos; CI(1) - mean(reps)];        
-%         errorVecNeg = [errorVecNeg; mean(reps) - abs(CI(2))];        
-%         sumBytesVec = [sumBytesVec; mean(reps)];
-    end        
+    end   
+%     deviation = [];
+%     for i = 1:numRx        
+%         deviation(i) = std(rcvdBytesVec(i,:));
+%     end    
+%     mean(deviation)
     figure;
     hold on;    
     leg = {};
@@ -30,9 +31,9 @@ function plot_individual_rcvd_bytes(directory, numRx, repetitions)
         leg{end+1} = strcat('Rx', int2str(i));
     end            
     legend(leg);
-    xlabel('reptition [#]');
+    xlabel('repetition [#]');
     ylabel('received bytes');    
     set(gca,'FontSize', 26)
-    title('Reuse Tester, 5 RBs, 10s', 'FontSize', 20);
+    title('ALLOCATOR BESTFIT, 50 RBs, 60s', 'FontSize', 20);
 end
 

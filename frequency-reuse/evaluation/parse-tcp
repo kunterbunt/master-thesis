@@ -1,0 +1,8 @@
+#!/bin/bash
+if (( $# < 1));
+then
+	echo "Usage: parse <scalar file>"
+	exit
+fi
+
+grep -e "^scalar FrequencyNetwork.ueD2DRx\[.*\].tcpApp\[0\][[:space:]]\{1,\}rcvdPk:sum(packetBytes)[[:space:]]\{1,\}" $1 | awk '{print $4}'
