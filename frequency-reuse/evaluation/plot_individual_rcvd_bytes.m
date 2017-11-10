@@ -34,6 +34,6 @@ function plot_individual_rcvd_bytes(directory, numRx, repetitions)
     xlabel('repetition [#]');
     ylabel('received bytes');    
     set(gca,'FontSize', 26)
-    title('ALLOCATOR BESTFIT, 50 RBs, 60s', 'FontSize', 20);
+    title('ALLOCATOR BESTFIT, 50 RBs, 60s, TCP/FTP', 'FontSize', 20);
 end
 

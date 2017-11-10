@@ -2,7 +2,7 @@ function plot_sum_rcvd_bytes(directory, numReps)
     sumBytesVec = [];
     errorVecPos = [];    
     errorVecNeg = [];
-    for i = 310:10:400
+    for i = 350:10:390
         reps = [];
         for j = 0:(numReps-1)
             filename = strcat(directory, 'd', int2str(i), '-rep', int2str(j), '.sca.parsed');
@@ -16,7 +16,7 @@ function plot_sum_rcvd_bytes(directory, numReps)
     end        
     figure;
     hold on;    
-    e = errorbar(10:10:100, sumBytesVec, errorVecNeg, errorVecPos);
+    e = errorbar(10:10:50, sumBytesVec, errorVecNeg, errorVecPos);
     e.LineStyle = '--';
     e.LineWidth = 1;
     e.Marker = 'x';
@@ -25,6 +25,6 @@ function plot_sum_rcvd_bytes(directory, numReps)
     xlabel('pair distance [m]');
     ylabel('received bytes');    
     set(gca,'FontSize', 26)
-    title('Reuse Tester, 2pairs, 5RBs, 30s, 20reps', 'FontSize', 20);
+    title('REUSE\_TESTER, 2pairs, 5RBs, 30s, 20reps', 'FontSize', 20);
 end
 
