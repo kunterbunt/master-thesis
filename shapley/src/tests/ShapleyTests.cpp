@@ -1,7 +1,7 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include <iostream>
-#include "../shapley.h"
+#include "shapley.h"
 
 using namespace Shapley;
 
@@ -34,9 +34,9 @@ class ShapleyTests : public CppUnit::TestFixture {
 	};
 	
 	double fareA = 6.0, fareB = 12.0, fareC = 42.0;
-	const TaxiPlayer  *playerA = nullptr,
-				*playerB = nullptr,
-				*playerC = nullptr;
+	const TaxiPlayer *playerA = nullptr,
+					 *playerB = nullptr,
+					 *playerC = nullptr;
 	Coalition<TaxiPlayer>* coalition = nullptr;
   
   public:

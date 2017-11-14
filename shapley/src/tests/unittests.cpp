@@ -3,7 +3,7 @@
 //
 
 #include <cppunit/ui/text/TestRunner.h>
-#include "lib/tests/ShapleyTests.cpp"
+#include "tests/ShapleyTests.cpp"
 
 int main(int argc, const char *argv[]) {
 	CppUnit::TextUi::TestRunner runner;

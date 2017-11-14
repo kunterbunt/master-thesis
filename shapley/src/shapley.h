@@ -12,9 +12,9 @@
  */
 namespace Shapley {
   
-  /** NEEDED CLASSES */
+  /** REQUIRED CLASSES */
   
-  /**
+/**
  * A Player contributes to a coalition's worth in some way.
  */
   class Player {
@@ -130,6 +130,13 @@ namespace Shapley {
 	  return contributions;
   }
   
+  /**
+   * Computes each player's Shapley value.
+   * @tparam PlayerType A class that derives from Shapley::Player.
+   * @param players
+   * @param charFunc A characteristic function for 'PlayerType'.
+   * @return A [Player, Shapley Value]-map.
+   */
   template<class PlayerType>
   static std::map<const PlayerType*, double> compute(const std::vector<const PlayerType*>& players,
                                                      const CharacteristicFunction<PlayerType>& charFunc) {
@@ -141,7 +148,7 @@ namespace Shapley {
 	  // Remember the indices for all players.
 	  std::vector<int> positions;
 	  for (int i = 0; i < (int) players.size(); i++)
-	    positions.push_back(i);
+		  positions.push_back(i);
 	  
 	  // Go through all permutations of our players.
 	  double permutationCounter = 0.0;
