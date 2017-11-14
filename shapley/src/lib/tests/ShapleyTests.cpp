@@ -34,7 +34,7 @@ class ShapleyTests : public CppUnit::TestFixture {
 	};
 	
 	double fareA = 6.0, fareB = 12.0, fareC = 42.0;
-	TaxiPlayer  *playerA = nullptr,
+	const TaxiPlayer  *playerA = nullptr,
 				*playerB = nullptr,
 				*playerC = nullptr;
 	Coalition<TaxiPlayer>* coalition = nullptr;
@@ -120,79 +120,82 @@ class ShapleyTests : public CppUnit::TestFixture {
 		std::vector<const TaxiPlayer*> permutation;
 		
 		// (A,B,C)
-		permutation.push_back((const TaxiPlayer*) playerA);
-		permutation.push_back((const TaxiPlayer*) playerB);
-		permutation.push_back((const TaxiPlayer*) playerC);
+		permutation.push_back(playerA);
+		permutation.push_back(playerB);
+		permutation.push_back(playerC);
 		std::map<const TaxiPlayer*, double> marginalContributions = getMarginalContribution(permutation, charFunc);
 		CPPUNIT_ASSERT_EQUAL(permutation.size(), marginalContributions.size());
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerA), 6.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerB), 6.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerC), 30.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerA), 6.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerB), 6.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerC), 30.0);
 		
 		// (A,C,B)
 		permutation.clear();
-		permutation.push_back((const TaxiPlayer*) playerA);
-		permutation.push_back((const TaxiPlayer*) playerC);
-		permutation.push_back((const TaxiPlayer*) playerB);
+		permutation.push_back(playerA);
+		permutation.push_back(playerC);
+		permutation.push_back(playerB);
 		marginalContributions = getMarginalContribution(permutation, charFunc);
 		CPPUNIT_ASSERT_EQUAL(permutation.size(), marginalContributions.size());
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerA), 6.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerB), 0.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerC), 36.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerA), 6.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerB), 0.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerC), 36.0);
 		
 		// (B,A,C)
 		permutation.clear();
-		permutation.push_back((const TaxiPlayer*) playerB);
-		permutation.push_back((const TaxiPlayer*) playerA);
-		permutation.push_back((const TaxiPlayer*) playerC);
+		permutation.push_back(playerB);
+		permutation.push_back(playerA);
+		permutation.push_back(playerC);
 		marginalContributions = getMarginalContribution(permutation, charFunc);
 		CPPUNIT_ASSERT_EQUAL(permutation.size(), marginalContributions.size());
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerA), 0.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerB), 12.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerC), 30.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerA), 0.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerB), 12.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerC), 30.0);
 		
 		// (B,C,A)
 		permutation.clear();
-		permutation.push_back((const TaxiPlayer*) playerB);
-		permutation.push_back((const TaxiPlayer*) playerC);
-		permutation.push_back((const TaxiPlayer*) playerA);
+		permutation.push_back(playerB);
+		permutation.push_back(playerC);
+		permutation.push_back(playerA);
 		marginalContributions = getMarginalContribution(permutation, charFunc);
 		CPPUNIT_ASSERT_EQUAL(permutation.size(), marginalContributions.size());
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerA), 0.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerB), 12.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerC), 30.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerA), 0.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerB), 12.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerC), 30.0);
 		
 		// (C,A,B)
 		permutation.clear();
-		permutation.push_back((const TaxiPlayer*) playerC);
-		permutation.push_back((const TaxiPlayer*) playerA);
-		permutation.push_back((const TaxiPlayer*) playerB);
+		permutation.push_back(playerC);
+		permutation.push_back(playerA);
+		permutation.push_back(playerB);
 		marginalContributions = getMarginalContribution(permutation, charFunc);
 		CPPUNIT_ASSERT_EQUAL(permutation.size(), marginalContributions.size());
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerA), 0.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerB), 0.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerC), 42.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerA), 0.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerB), 0.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerC), 42.0);
 		
 		// (C,B,A)
 		permutation.clear();
-		permutation.push_back((const TaxiPlayer*) playerC);
-		permutation.push_back((const TaxiPlayer*) playerB);
-		permutation.push_back((const TaxiPlayer*) playerA);
+		permutation.push_back(playerC);
+		permutation.push_back(playerB);
+		permutation.push_back(playerA);
 		marginalContributions = getMarginalContribution(permutation, charFunc);
 		CPPUNIT_ASSERT_EQUAL(permutation.size(), marginalContributions.size());
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerA), 0.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerB), 0.0);
-		CPPUNIT_ASSERT_EQUAL(marginalContributions.at((const TaxiPlayer*) playerC), 42.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerA), 0.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerB), 0.0);
+		CPPUNIT_ASSERT_EQUAL(marginalContributions.at(playerC), 42.0);
 	}
 	
 	void testCompute() {
 		std::cout << "[ShapleyTests/testCompute]" << std::endl;
-//		std::vector<TaxiPlayer> players;
-//		players.push_back(*playerA);
-//		players.push_back(*playerB);
-//		players.push_back(*playerC);
-//		TaxiCharacteristicFunction characteristicFunction;
-//		std::vector<double> values = compute(players, characteristicFunction);
+		std::vector<const TaxiPlayer*> players;
+		players.push_back(playerA);
+		players.push_back(playerB);
+		players.push_back(playerC);
+		TaxiCharacteristicFunction charFunc;
+		std::map<const TaxiPlayer*, double> shapleyValues = compute(players, charFunc);
+		CPPUNIT_ASSERT_EQUAL(shapleyValues.at(playerA), 2.0);
+		CPPUNIT_ASSERT_EQUAL(shapleyValues.at(playerB), 5.0);
+		CPPUNIT_ASSERT_EQUAL(shapleyValues.at(playerC), 35.0);
 	}
 	
 	CPPUNIT_TEST_SUITE(ShapleyTests);

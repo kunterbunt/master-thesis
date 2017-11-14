@@ -7,7 +7,13 @@
 #include <iostream>
 #include <map>
 
+/**
+ * Implementation of the computation of the game theoretic Shapley value.
+ */
 namespace Shapley {
+  
+  /** NEEDED CLASSES */
+  
   /**
  * A Player contributes to a coalition's worth in some way.
  */
@@ -25,7 +31,7 @@ namespace Shapley {
 /**
  * A Coalition contains any number of Players.
  */
-  template <class PlayerType>
+  template<class PlayerType>
   class Coalition {
 	public:
 	  /**
@@ -89,7 +95,7 @@ namespace Shapley {
 /**
  * The Characteristic Function determines a Coalition's worth.
  */
-  template <class PlayerType>
+  template<class PlayerType>
   class CharacteristicFunction {
 	public:
 	  virtual ~CharacteristicFunction() {}
@@ -97,31 +103,68 @@ namespace Shapley {
 	  virtual double getValue(const Coalition<PlayerType>& coalition) const = 0;
   };
   
-  template <class PlayerType>
-  static std::vector<double> compute(const std::vector<const PlayerType*>& players,
-	                                     const CharacteristicFunction<PlayerType>& charFunc) {
-	  std::vector<double> shapleyValues;
-	  for (size_t i = 0; i < players.size(); i++) {
-		
+  
+  /** IMPLEMENTATION */
+  
+  
+  /**
+   * @tparam PlayerType A class that derives from Shapley::Player.
+   * @param permutation A list of players in a specific order.
+   * @param charFunc A characteristic function for 'PlayerType'.
+   * @return The marginal contribution that this permutation achieves.
+   */
+  template<class PlayerType>
+  static std::map<const PlayerType*, double> getMarginalContribution(const std::vector<const PlayerType*>& permutation,
+                                                                     const CharacteristicFunction<PlayerType>& charFunc) {
+	  std::map<const PlayerType*, double> contributions;
+	  Coalition<PlayerType> coalition;
+	  for (size_t i = 0; i < permutation.size(); i++) {
+		  const PlayerType* currentPlayer = permutation.at(i);
+		  coalition.add(currentPlayer);
+		  if (coalition.size() > 1)
+			  contributions[currentPlayer] = (charFunc.getValue(coalition) -
+			                                  charFunc.getValue(coalition.getUpUntil(i)));
+		  else
+			  contributions[currentPlayer] = (charFunc.getValue(coalition));
 	  }
-	  return shapleyValues;
+	  return contributions;
   }
   
-  template <class PlayerType>
-  static std::map<const PlayerType*, double> getMarginalContribution(const std::vector<const PlayerType*>& permutation,
-	                                                     const CharacteristicFunction<PlayerType>& charFunc) {
-  std::map<const PlayerType*, double> contributions;
-  Coalition<PlayerType> coalition;
-  for (size_t i = 0; i < permutation.size(); i++) {
-	  const PlayerType* currentPlayer = permutation.at(i);
-	  coalition.add(currentPlayer);
-	  if (coalition.size() > 1)
-	    contributions[currentPlayer] = (charFunc.getValue(coalition) - charFunc.getValue(coalition.getUpUntil(i)));
-	  else
-	    contributions[currentPlayer] = (charFunc.getValue(coalition));
+  template<class PlayerType>
+  static std::map<const PlayerType*, double> compute(const std::vector<const PlayerType*>& players,
+                                                     const CharacteristicFunction<PlayerType>& charFunc) {
+	  // Initiate all player's Shapley values to 0.
+	  std::map<const PlayerType*, double> shapleyValues;
+	  for (size_t i = 0; i < players.size(); i++)
+		  shapleyValues[players.at(i)] = 0.0;
+	  
+	  // Remember the indices for all players.
+	  std::vector<int> positions;
+	  for (int i = 0; i < (int) players.size(); i++)
+	    positions.push_back(i);
+	  
+	  // Go through all permutations of our players.
+	  double permutationCounter = 0.0;
+	  do {
+		  // We permute the 'positions' vector, as permuting the players directly doesn't work.
+		  std::vector<const PlayerType*> permutation;
+		  for (int& position : positions)
+			  permutation.push_back(players.at(position)); // Grab current player permutation.
+		  // Find marginal contributions of each player for the current permutation.
+		  std::map<const PlayerType*, double> marginalContributions = getMarginalContribution(permutation, charFunc);
+		  // Sum them up.
+		  for (size_t i = 0; i < players.size(); i++)
+			  shapleyValues[players.at(i)] += marginalContributions[players.at(i)];
+		  
+		  permutationCounter++;
+	  } while (std::next_permutation(positions.begin(), positions.end())); // Keep permuting.
+	  
+	  // Take averages.
+	  for (size_t i = 0; i < players.size(); i++)
+		  shapleyValues[players.at(i)] /= permutationCounter;
+	  
+	  return shapleyValues;
   }
-  return contributions;
-}
 }
 
 #endif
