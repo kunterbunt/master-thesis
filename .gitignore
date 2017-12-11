@@ -1,3 +1,6 @@
 */results/
 */.idea/
 */cmake-build-debug/
+out*
+.cproject*
+.settings*
