@@ -2,11 +2,11 @@ function plot_individual_rcvd_bytes(directory, numRx, repetitions)
     rcvdBytesVec = zeros(numRx, repetitions);
     errorVecPos = [];    
     errorVecNeg = [];
-    for i = 310:10:310
+    for i = 300:10:380
         reps = [];
         for j= 0:(repetitions - 1)
-%             filename = strcat(directory, 'd', int2str(i), '-rep', int2str(j), '.sca.parsed');
-            filename = strcat(directory, 'rep', int2str(j), '.sca.parsed');
+            filename = strcat(directory, 'd', int2str(i), '-rep', int2str(j), '.sca.parsed');
+%             filename = strcat(directory, 'rep', int2str(j), '.sca.parsed');
             receiverBytesVec = csvread(filename);
             for k = 1:numRx
                 rcvdBytesVec(k,j+1) = receiverBytesVec(k);

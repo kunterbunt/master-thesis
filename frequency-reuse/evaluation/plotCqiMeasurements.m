@@ -21,8 +21,19 @@ errorCqiNeg = [];
 for i=1:size(cqis, 1)
     meanCqi = [meanCqi; mean(cqis(i,:))];    
     CIs = getCI(cqis(i,:), 0.95);
-    errorCqiPos = [errorCqiPos; CIs(1) - mean(cqis(i,:))];
-    errorCqiNeg = [errorCqiNeg; mean(cqis(i,:)) - abs(CIs(2))];
+    % Cap at 15.
+    if mean(cqis(i,:)) + CIs(3) > 15        
+        errorCqiPos = [errorCqiPos; 15 - mean(cqis(i,:))];   
+    else
+        errorCqiPos = [errorCqiPos; CIs(3)];   
+    end                
+    
+    % Cap at 0.
+    if mean(cqis(i,:)) - CIs(3) < 0
+        errorCqiNeg = [errorCqiNeg; mean(cqis(i,:))];   
+    else
+        errorCqiNeg = [errorCqiNeg; CIs(3)];   
+    end                
 end
 
 sinrs = [
@@ -48,8 +59,14 @@ errorSinrNeg = [];
 for i=1:size(sinrs, 1)
     meanSinr = [meanSinr; mean(sinrs(i,:))];
     CIs = getCI(sinrs(i,:), 0.95);
-    errorSinrPos = [errorSinrPos; CIs(1) - mean(sinrs(i,:))];
-    errorSinrNeg = [errorSinrNeg; mean(sinrs(i,:)) - abs(CIs(2))];
+     
+    errorSinrPos = [errorSinrPos; CIs(3)];
+    % Cap at 0.
+    if mean(sinrs(i,:)) - CIs(3) < 0
+        errorSinrNeg = [errorSinrNeg; mean(sinrs(i,:))];   
+    else
+        errorSinrNeg = [errorSinrNeg; CIs(3)];   
+    end                
 end
 
 atts = [
@@ -74,21 +91,46 @@ errorAttPos = [];
 errorAttNeg = [];
 for i=1:size(atts, 1)
     meanAtt = [meanAtt; mean(atts(i,:))];
-    CIs = getCI(atts(i,:), 0.95);
-    errorAttPos = [errorAttPos; CIs(1) - mean(atts(i,:))];
-    errorAttNeg = [errorAttNeg; mean(atts(i,:)) - abs(CIs(2))];
+    CIs = getCI(atts(i,:), 0.95);    
+    
+    errorAttPos = [errorAttPos; CIs(3)];
+    % Cap at 0.
+    if mean(atts(i,:)) - CIs(3) < 0
+        errorAttNeg = [errorAttNeg; mean(atts(i,:))];   
+    else
+        errorAttNeg = [errorAttNeg; CIs(3)];   
+    end                
+end
+
+theoreticalAtts = [];
+for i=10:10:150
+    theoreticalAtts = [theoreticalAtts; getPathAttenuation(i/1000, 2)];
 end
 
 figure
 hold on;
 yyaxis left
-errorbar(10:10:150, meanCqi, errorCqiNeg, errorCqiPos)
+e = errorbar(10:10:150, meanCqi, errorCqiNeg, errorCqiPos);
+e.LineStyle = '--';
+e.LineWidth = 1;
+e.Marker = 'x';
+e.MarkerSize = 8;
 title('Path attenuation, SINR and CQI over increasing distance')
 xlabel('distance between transmitter and receiver [m]')
 ylabel('CQI')
 yyaxis right
 ylabel('dB')
-errorbar(10:10:150, meanSinr, errorSinrNeg, errorSinrPos)
-errorbar(10:10:150, meanAtt, errorAttNeg, errorAttPos)
-legend('CQI', 'SINR', 'Attenuation')
+e = errorbar(10:10:150, meanSinr, errorSinrNeg, errorSinrPos);
+e.LineWidth = 1;
+e.Marker = 'x';
+e.MarkerSize = 8;
+e = errorbar(10:10:150, meanAtt, errorAttNeg, errorAttPos);
+e.LineWidth = 1;
+e.Marker = 'x';
+e.MarkerSize = 8;
+e = plot(10:10:150, theoreticalAtts);
+e.LineWidth = 1;
+e.Marker = 'x';
+e.MarkerSize = 8;
+legend('CQI', 'SINR', 'Attenuation', 'FSPL')
 set(gca,'FontSize', 26)

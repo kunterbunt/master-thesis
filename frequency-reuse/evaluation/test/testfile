@@ -1,0 +1,1 @@
+scalar FrequencyNetwork.ueD2DRx[9].udpApp[0] 	rcvdPk:sum(packetBytes) 	800
