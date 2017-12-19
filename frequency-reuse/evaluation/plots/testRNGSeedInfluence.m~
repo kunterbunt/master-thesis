@@ -1,36 +1,80 @@
-rcvdBytesVec = zeros(numRx, repetitions);
-errorVecPos = [];    
-errorVecNeg = [];
+numRx = 10;
+repetitions = 50;
+
+rcvdBytesVecPF = zeros(numRx, repetitions);
 for i = 1:1:1
-    reps = [];
+    repsPF = [];
     for j= 0:(repetitions - 1)
-%             filename = strcat(directory, 'd', int2str(i), '-rep', int2str(j), '.sca.parsed');
-        filename = strcat(directory, 'rep', int2str(j), '.sca.parsed');
+        filename = strcat('../../results/testRNGSeedInfluencePF/', 'rep', int2str(j), '.sca.parsed');
         receiverBytesVec = csvread(filename);
         for k = 1:numRx
-            rcvdBytesVec(k,j+1) = receiverBytesVec(k);
+            rcvdBytesVecPF(k,j+1) = receiverBytesVec(k);
         end
-        reps = [reps; sum(receiverBytesVec)];
+        repsPF = [repsPF; sum(receiverBytesVec)];
     end        
 end   
-%     deviation = [];
-%     for i = 1:numRx        
-%         deviation(i) = std(rcvdBytesVec(i,:));
-%     end    
-%     mean(deviation)
+
+deviationPF = [];
+variancePF = [];
+throughputPF = [];
+errorVecPosPF = [];    
+errorVecNegPF = [];
+for i = 1:numRx        
+    deviationPF(i) = std(rcvdBytesVecPF(i,:));
+    variancePF(i) = var(rcvdBytesVecPF(i,:));
+    throughputPF(i) = mean(rcvdBytesVecPF(i,:));
+    
+end    
+
+
+rcvdBytesVecRR = zeros(numRx, repetitions);
+for i = 1:1:1
+    repsRR = [];
+    for j= 0:(repetitions - 1)
+        filename = strcat('../../results/testRNGSeedInfluence/', 'rep', int2str(j), '.sca.parsed');
+        receiverBytesVec = csvread(filename);
+        for k = 1:numRx
+            rcvdBytesVecRR(k,j+1) = receiverBytesVec(k);
+        end
+        repsRR = [repsRR; sum(receiverBytesVec)];
+    end        
+end   
+
+deviationRR = [];
+varianceRR = [];
+throughputRR = [];
+for i = 1:numRx        
+    deviationRR(i) = std(rcvdBytesVecRR(i,:));
+    varianceRR(i) = var(rcvdBytesVecRR(i,:));
+    throughputRR(i) = mean(rcvdBytesVecRR(i,:));
+end    
+
 figure;
 hold on;    
-leg = {};
-for i = 1:numRx
-    e = plot(1:repetitions, rcvdBytesVec(i,:));    
-    e.LineWidth = 1;
-    e.Marker = 'x';
-    e.MarkerSize = 8;
 
-    leg{end+1} = strcat('Rx', int2str(i));
-end            
-legend(leg);
-xlabel('repetition [#]');
-ylabel('received bytes');    
-set(gca,'FontSize', 26)
-title('NAIVE\_ROUND\_ROBIN, 6 RBs, 60s, UDP/Full Buffer', 'FontSize', 20);
+e = plot(10:10:100, deviationPF);    
+e.LineWidth = 1;
+e.Marker = 'x';
+e.MarkerSize = 8;
+
+e = plot(10:10:100, throughputPF);   
+% e = errorbar(10:10:100, throughputPF, errorVecNegPF, errorVecPosPF);
+e.LineWidth = 1;
+e.Marker = 'o';
+e.MarkerSize = 8;
+
+e = plot(10:10:100, deviationRR);        
+e.LineWidth = 1;
+e.Marker = 'x';
+e.MarkerSize = 8;
+
+e = plot(10:10:100, throughputRR);    
+e.LineWidth = 1;
+e.Marker = 'o';
+e.MarkerSize = 8;
+
+xlabel('intra-pair distance [m]')
+ylabel('Byte');    
+legend({'Proportional Fair Scheduler Standard Deviation', 'Proportional Fair Scheduler Mean Throughput', 'Naive Round Robin Scheduler Standard Deviation', 'Naive Round Robin Scheduler Mean Throughput'});
+set(gca,'FontSize', 26);
+title('10 pairs, 50 RBs, 50 repetitions, 60s, UDP/Full Buffer', 'FontSize', 20);
