@@ -5,3 +5,4 @@ out*
 .cproject*
 .settings*
 frequency-reuse/frequency-reuse
+frequency-reuse/Makefile
