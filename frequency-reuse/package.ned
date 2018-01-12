@@ -36,8 +36,11 @@ network FrequencyNetwork
         binder: LteBinder {
             @display("p=50,175;is=s");
         }
-        server: StandardHost {
+        VoIPServer: StandardHost {
             @display("p=212,118;is=n;i=device/server");
+        }
+        CBRServer: StandardHost {
+            @display("p=211.4375,202.73125;is=n;i=device/server");
         }
         router: Router {
             @display("p=321,136;i=device/smallrouter");
@@ -50,19 +53,20 @@ network FrequencyNetwork
             @display("p=391,259;is=vl");
         }
         ueCell[numUeCell]: Ue {
-            @display("p=292,367");
+            @display("p=292,367;i=device/cellphone");
         }
         ueD2DTx[numUeD2DTx]: Ue {
-            @display("p=477,367");
+            @display("p=477,367;i=device/cellphone");
         }
         ueD2DRx[numUeD2DRx]: Ue {
-            @display("p=544,299");
+            @display("p=544,299;i=device/cellphone");
         }
         oracle: Oracle {
             @display("p=716.4,74.625");
-        }
+        }        
     connections:
-        server.pppg++ <--> Eth10G <--> router.pppg++;
+        VoIPServer.pppg++ <--> Eth10G <--> router.pppg++;
+        CBRServer.pppg++ <--> Eth10G <--> router.pppg++;
         router.pppg++ <--> Eth10G <--> pgw.filterGate;
         pgw.pppg++ <--> Eth10G <--> eNodeB.ppp;
 }
