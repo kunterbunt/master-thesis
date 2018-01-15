@@ -18,9 +18,18 @@ import lte.epc.PgwStandardSimplified;
 network FrequencyNetwork
 {
     parameters:
-        int numUeCell = default(1);
-        int numUeD2DTx = default(2);
-        int numUeD2DRx = default(2);
+        int numUeCellTx_CBR = default(0);
+        int numUeCellRx_CBR = default(0);
+        int numUeCellTx_VoIP = default(0);
+        int numUeCellRx_VoIP = default(0);
+        int numUeCellTx_vid = default(0);
+        int numUeCellRx_vid = default(0);
+        int numUeD2DTx_CBR = default(0);
+        int numUeD2DRx_CBR = default(0);
+        int numUeD2DTx_VoIP = default(0);
+        int numUeD2DRx_VoIP = default(0);
+        int numUeD2DTx_vid = default(0);
+        int numUeD2DRx_vid = default(0);
         @display("i=block/network2;bgb=991,558;bgi=background/budapest");
     submodules:
         channelControl: LteChannelControl {
@@ -36,12 +45,6 @@ network FrequencyNetwork
         binder: LteBinder {
             @display("p=50,175;is=s");
         }
-        VoIPServer: StandardHost {
-            @display("p=212,118;is=n;i=device/server");
-        }
-        CBRServer: StandardHost {
-            @display("p=211.4375,202.73125;is=n;i=device/server");
-        }
         router: Router {
             @display("p=321,136;i=device/smallrouter");
         }
@@ -51,22 +54,53 @@ network FrequencyNetwork
         }
         eNodeB: eNodeB {
             @display("p=391,259;is=vl");
-        }
-        ueCell[numUeCell]: Ue {
-            @display("p=292,367;i=device/cellphone");
-        }
-        ueD2DTx[numUeD2DTx]: Ue {
-            @display("p=477,367;i=device/cellphone");
-        }
-        ueD2DRx[numUeD2DRx]: Ue {
-            @display("p=544,299;i=device/cellphone");
-        }
+        }        
         oracle: Oracle {
             @display("p=716.4,74.625");
-        }        
+        }
+        
+        ueCellTx_CBR[numUeCellTx_CBR]: Ue {
+            @display("p=48.50625,415.4125;i=device/cellphone");
+        }
+        ueCellRx_CBR[numUeCellRx_CBR]: Ue {
+            @display("p=48.50625,308.45;i=device/cellphone");
+        }
+        
+        ueCellTx_VoIP[numUeCellTx_VoIP]: Ue {
+            @display("p=135.56876,308.45;i=device/cellphone");
+        }
+        ueCellRx_VoIP[numUeCellRx_VoIP]: Ue {
+            @display("p=135.56876,415.4125;i=device/cellphone");
+        }
+        
+        ueCellTx_vid[numUeCellTx_vid]: Ue {
+            @display("p=227.60625,308.45;i=device/cellphone");
+        }
+        ueCellRx_vid[numUeCellRx_vid]: Ue {
+            @display("p=227.60625,415.4125;i=device/cellphone");
+        }
+        
+        ueD2DTx_CBR[numUeD2DTx_CBR]: Ue {
+            @display("p=543.51874,424.11874;i=device/cellphone");
+        }
+        ueD2DRx_CBR[numUeD2DRx_CBR]: Ue {
+            @display("p=544,299;i=device/cellphone");
+        }   
+             
+        ueD2DTx_VoIP[numUeD2DTx_VoIP]: Ue {
+            @display("p=647.9938,298.5;i=device/cellphone");
+        }
+        ueD2DRx_VoIP[numUeD2DRx_VoIP]: Ue {
+            @display("p=647.9938,424.11874;i=device/cellphone");
+        }
+        
+        ueD2DTx_vid[numUeD2DTx_vid]: Ue {
+            @display("p=771.125,298.5;i=device/cellphone");
+        }
+        ueD2DRx_vid[numUeD2DRx_vid]: Ue {
+            @display("p=771.125,424.11874;i=device/cellphone");
+        }
     connections:
-        VoIPServer.pppg++ <--> Eth10G <--> router.pppg++;
-        CBRServer.pppg++ <--> Eth10G <--> router.pppg++;
         router.pppg++ <--> Eth10G <--> pgw.filterGate;
         pgw.pppg++ <--> Eth10G <--> eNodeB.ppp;
 }
