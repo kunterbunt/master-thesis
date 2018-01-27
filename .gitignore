@@ -6,3 +6,5 @@ out*
 .settings*
 frequency-reuse/frequency-reuse
 frequency-reuse/Makefile
+frequency-reuse/schedule_record
+
