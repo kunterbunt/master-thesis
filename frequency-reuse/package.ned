@@ -110,33 +110,33 @@ network FrequencyNetwork
             @display("p=1008.6812,421.63126;i=device/cellphone");
         }
 
-        ueCellRx_CBR[numUeCellRx_CBR]: Ue {
-            @display("p=123.13125,314.66876;i=device/cellphone");
-        }
         ueCellTx_CBR[numUeCellTx_CBR]: Ue {
             @display("p=123.13125,421.63126;i=device/cellphone");
         }
+        ueCellRx_CBR[numUeCellRx_CBR]: Ue {
+            @display("p=123.13125,314.66876;i=device/cellphone");
+        }        
 
-        ueD2DRx_CBR[numUeD2DRx_CBR]: Ue {
-            @display("p=694.0125,296.0125;i=device/cellphone");
-        }
-        ueD2DTx_CBR[numUeD2DTx_CBR]: Ue {
+		ueD2DTx_CBR[numUeD2DTx_CBR]: Ue {
             @display("p=694.0125,421.63126;i=device/cellphone");
         }
+        ueD2DRx_CBR[numUeD2DRx_CBR]: Ue {
+            @display("p=694.0125,296.0125;i=device/cellphone");
+        }        
         
-        ueCellRx_FULBUF[numUeCellRx_FULBUF]: Ue {
-            @display("p=62.1875,314.66876;i=device/cellphone");
-        }
         ueCellTx_FULBUF[numUeCellTx_FULBUF]: Ue {
             @display("p=62.1875,421.63126;i=device/cellphone");
         }
+        ueCellRx_FULBUF[numUeCellRx_FULBUF]: Ue {
+            @display("p=62.1875,314.66876;i=device/cellphone");
+        }        
 
-        ueD2DRx_FULBUF[numUeD2DRx_FULBUF]: Ue {
-            @display("p=1093.2562,421.63126;i=device/cellphone");
-        }
         ueD2DTx_FULBUF[numUeD2DTx_FULBUF]: Ue {
             @display("p=1093.2562,296.0125;i=device/cellphone");
         }
+        ueD2DRx_FULBUF[numUeD2DRx_FULBUF]: Ue {
+            @display("p=1093.2562,421.63126;i=device/cellphone");
+        }        
     connections:
         router.pppg++ <--> Eth10G <--> pgw.filterGate;
         pgw.pppg++ <--> Eth10G <--> eNodeB.ppp;
