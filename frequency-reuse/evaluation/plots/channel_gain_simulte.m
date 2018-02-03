@@ -825,6 +825,17 @@ for i = 1:numReps:size(gainD2DVec, 1)
     gainD2DPosVec(end + 1) = ci(3);
 end
 
+gainD2DMeandBVec = [];
+gainD2DNegdBVec = [];
+gainD2DPosdBVec = [];
+for i = 1:numReps:size(gainD2DVec, 1)
+    j = i+(numReps-1);
+    ci = getCI(10 * log10(gainD2DVec(i:j)), 0.95);
+    gainD2DMeandBVec(end + 1) = mean(10 * log10(gainD2DVec(i:j)));
+    gainD2DNegdBVec(end + 1) = ci(3);
+    gainD2DPosdBVec(end + 1) = ci(3);
+end
+
 % Get confidence intervals cellular.
 gainCellMeanVec = [];
 gainCellNegVec = [];
@@ -865,16 +876,21 @@ distanceVec = 5:5:100;
 
 figure;
 hold on;
+yyaxis left;
+ylabel('channel gain [linear]');
 errorbar(distanceVec, gainD2DMeanVec, gainD2DNegVec, gainD2DPosVec);
+
+yyaxis right;
+ylabel('channel gain [dB]');
+errorbar(distanceVec, gainD2DMeandBVec, gainD2DNegdBVec, gainD2DPosdBVec);
 %errorbar(distanceVec, gainCellMeanVec, gainCellNegVec, gainCellPosVec);
 %errorbar(distanceVec, gainCellEnbMeanVec, gainCellEnbNegVec, gainCellEnbPosVec);
 %errorbar(distanceVec, gainEnbCellMeanVec, gainEnbCellNegVec, gainEnbCellPosVec);
 
 xlabel('distance [m]');
-ylabel('channel gain');
-title('Channel gain between nodes as reported by simuLTE.');
+
+title('Channel gain between two UEs in simuLTE.');
 %legend({'D2D pair', 'Cellular pair', 'UE to eNodeB'});
-legend({'UE to UE'});
 set(gca,'FontSize', 26);
 
 hold off;
