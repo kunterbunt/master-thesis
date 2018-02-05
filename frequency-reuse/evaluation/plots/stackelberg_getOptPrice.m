@@ -1,4 +1,4 @@
-function price = untitled(p_max, p_min, p_tx, g_ke, g_ki, g_ie, g_ik, g_ii, N, beta)    
+function price = stackelberg_getOptPrice(p_max, p_min, p_tx, g_ke, g_ki, g_ie, g_ik, g_ii, N, beta)    
     varA = p_tx * g_ke;
     varB = 1 / log10(2);
     varC = -g_ie * ((p_tx * g_ki + N) / g_ii) + N;       
