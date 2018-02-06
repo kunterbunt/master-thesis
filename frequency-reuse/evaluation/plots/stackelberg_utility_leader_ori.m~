@@ -1,0 +1,4 @@
+function utility = stackelberg_utility_leader_ori(alpha_k, p_i, p_k, g_ke, p_i, g_ie, N, beta)
+    
+end
+

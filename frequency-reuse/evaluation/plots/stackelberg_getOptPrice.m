@@ -1,7 +1,7 @@
-function price = stackelberg_getOptPrice(p_max, p_min, p_tx, g_ke, g_ki, g_ie, g_ik, g_ii, N, beta)    
-    varA = p_tx * g_ke;
+function price = stackelberg_getOptPrice(p_max, p_min, p_k, g_ke, g_ki, g_ie, g_ik, g_ii, N, beta)    
+    varA = p_k * g_ke;
     varB = 1 / log10(2);
-    varC = -g_ie * ((p_tx * g_ki + N) / g_ii) + N;       
+    varC = -g_ie * ((p_k * g_ki + N) / g_ii) + N;       
 	varDelta = varA * varB^2 * (varA + 4 * varC * (varA + varC) * (1 / ((N - varC) * beta)));	
 	
 	% Options correspond to respective set values in paper's algorithm.
@@ -12,11 +12,11 @@ function price = stackelberg_getOptPrice(p_max, p_min, p_tx, g_ke, g_ki, g_ie, g
 	option5 = (-varB * (varA + 2 * varC) + sqrt(varDelta)) / (2 * varC * (varA + varC));
 	
 	% Evaluate the five price options' utility values.
-	utility1 = stackelberg_utility_leader(p_tx, g_ke, g_ki, g_ie, g_ii, N, beta, option1);
-	utility2 = stackelberg_utility_leader(p_tx, g_ke, g_ki, g_ie, g_ii, N, beta, option2);
-	utility3 = stackelberg_utility_leader(p_tx, g_ke, g_ki, g_ie, g_ii, N, beta, option3);
-	utility4 = stackelberg_utility_leader(p_tx, g_ke, g_ki, g_ie, g_ii, N, beta, option4);
-	utility5 = stackelberg_utility_leader(p_tx, g_ke, g_ki, g_ie, g_ii, N, beta, option5);
+	utility1 = stackelberg_utility_leader(p_k, g_ke, g_ki, g_ie, g_ii, N, beta, option1);
+	utility2 = stackelberg_utility_leader(p_k, g_ke, g_ki, g_ie, g_ii, N, beta, option2);
+	utility3 = stackelberg_utility_leader(p_k, g_ke, g_ki, g_ie, g_ii, N, beta, option3);
+	utility4 = stackelberg_utility_leader(p_k, g_ke, g_ki, g_ie, g_ii, N, beta, option4);
+	utility5 = stackelberg_utility_leader(p_k, g_ke, g_ki, g_ie, g_ii, N, beta, option5);
 		
 	bestOption = option1;
     bestUtility = utility1;

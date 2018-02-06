@@ -23,3 +23,4 @@ plot(pRange, utilVec);
 ylabel('u_i');
 xlabel('p_i [mW]');
 set(gca,'FontSize', 26);
+set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
