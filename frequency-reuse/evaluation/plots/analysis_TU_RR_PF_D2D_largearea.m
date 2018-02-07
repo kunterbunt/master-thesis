@@ -46,7 +46,7 @@ errorbar(nMin:nMax, mosMatPF(:, 1), mosMatPF(:, 2), mosMatPF(:, 3), '--v');
 errorbar(nMin:nMax, mosMatTU(:, 1), mosMatTU(:, 2), mosMatTU(:, 3), '--v');
 ylabel('Mean Opinion Score');
 legend({'Round Robin', 'Proportional Fair', 'Transferable Utility'}, 'Location','north','Orientation','horizontal');
-set(gca,'FontSize', 26);
+set(gca,'FontSize', 32);
 
 subplot(2,1,2);
 hold on;
@@ -56,5 +56,5 @@ errorbar(nMin:nMax, delayMatTU(:, 1), delayMatTU(:, 2), delayMatTU(:, 3), '--^')
 xlabel('number of D2D VoIP pairs [#]');
 ylabel('Mean Delay [ms]');
 legend({'Round Robin', 'Proportional Fair', 'Transferable Utility'}, 'Location','north','Orientation','horizontal');
-set(gca,'FontSize', 26);
+set(gca,'FontSize', 32);
 hold off;
