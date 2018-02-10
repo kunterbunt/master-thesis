@@ -31,5 +31,5 @@ plot(pRange, utilVec3);
 legend({strcat('\alpha_k=', int2str(price1)), strcat('\alpha_k=', int2str(price2)), strcat('\alpha_k=', int2str(price3))}, 'Location', 'northwest')
 ylabel('u_i');
 xlabel('p_i [mW]');
-set(gca,'FontSize', 26);
+set(gca,'FontSize', 32);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
