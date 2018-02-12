@@ -1,0 +1,43 @@
+reps = 20;
+nMin = 6;
+nMax = 10;
+filenamesD2D_noreuse = {};
+filenamesCell_noreuse = {};
+
+filenamesD2D_sta = {};
+filenamesCell_sta = {};
+
+filenamesD2D_random = {};
+filenamesCell_random = {};
+
+j = 0;
+for n=nMin:2:nMax
+    j = j + 1;
+    for rep=0:(reps - 1)
+        filenamesD2D_noreuse(j, (rep+1)) = {strcat('../../results/stackelcompare_rr_noreuse/', 'n', int2str(n), '_rep', int2str(rep), '.sca.fulbuf')};   
+        filenamesCell_noreuse(j, (rep+1)) = {strcat('../../results/stackelcompare_rr_noreuse/', 'n', int2str(n), '_rep', int2str(rep), '.sca.fulbufCell')};   
+        
+        filenamesD2D_random(j, (rep+1)) = {strcat('../../results/stackelcompare_rr_random/', 'n', int2str(n), '_rep', int2str(rep), '.sca.fulbuf')};   
+        filenamesCell_random(j, (rep+1)) = {strcat('../../results/stackelcompare_rr_random/', 'n', int2str(n), '_rep', int2str(rep), '.sca.fulbufCell')};   
+    end
+end
+
+sumBytesMatD2D_noreuse = zeros(3, 3);
+sumBytesMatCell_noreuse = zeros(3, 3);
+
+sumBytesMatD2D_random = zeros(3, 3);
+sumBytesMatCell_noreuse = zeros(3, 3);
+
+for n=1:size(filenamesD2D_noreuse, 1)    
+    [sumBytesMatD2D_noreuse(n, 1), sumBytesMatD2D_noreuse(n, 2), sumBytesMatD2D_noreuse(n, 3)] = getSumBytesVec(filenamesD2D_noreuse(n,:));
+    [sumBytesMatCell_noreuse(n, 1), sumBytesMatCell_noreuse(n, 2), sumBytesMatCell_noreuse(n, 3)] = getSumBytesVec(filenamesCell_noreuse(n,:));
+end
+
+figure;
+hold on;
+errorbar(nMin:2:nMax, sumBytesMatD2D_noreuse(:, 1), sumBytesMatD2D_noreuse(:, 2), sumBytesMatD2D_noreuse(:, 3));
+errorbar(nMin:2:nMax, sumBytesMatCell_noreuse(:, 1), sumBytesMatCell_noreuse(:, 2), sumBytesMatCell_noreuse(:, 3));
+ylabel('Sum of received bytes [B]');
+xlabel('number of full buffer pairs [#]');
+legend('vid', 'full buffer')
+set(gca,'FontSize', 26)
