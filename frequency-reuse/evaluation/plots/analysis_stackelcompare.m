@@ -1,5 +1,5 @@
-reps = 30;
-N = 5:5:5;
+reps = 10;
+N = 5:5:15;
 filenamesD2DNoReuse = {};
 filenamesCellNoReuse = {};
 
@@ -37,7 +37,7 @@ for i=1:size(N, 2)
     [throughputMatCellNoReuse(i, 1), throughputMatCellNoReuse(i, 2), throughputMatCellNoReuse(i, 3)] = getMeanVec(filenamesCellNoReuse(i,:));    
     
     [throughputMatD2DRandReuse(i, 1), throughputMatD2DRandReuse(i, 2), throughputMatD2DRandReuse(i, 3)] = getMeanVec(filenamesD2DRandReuse(i,:));    
-    [throughputMatCellRandReuse(i, 1), throughputMatCellRandReuse(i, 2), throughputMatCellRandReuse(i, 3)] = getMeanVec(filenamesD2DRandReuse(i,:));    
+    [throughputMatCellRandReuse(i, 1), throughputMatCellRandReuse(i, 2), throughputMatCellRandReuse(i, 3)] = getMeanVec(filenamesCellRandReuse(i,:));    
     
     [throughputMatD2DStaReuse(i, 1), throughputMatD2DStaReuse(i, 2), throughputMatD2DStaReuse(i, 3)] = getMeanVec(filenamesD2DStaReuse(i,:));    
     [throughputMatCellStaReuse(i, 1), throughputMatCellStaReuse(i, 2), throughputMatCellStaReuse(i, 3)] = getMeanVec(filenamesCellStaReuse(i,:));    
@@ -46,17 +46,17 @@ end
 figure;
 % subplot(2,1,1);
 hold on;
-errorbar(N, throughputMatCellNoReuse(:, 1), throughputMatCellNoReuse(:, 2), throughputMatCellNoReuse(:, 3), '--v');
-errorbar(N, throughputMatD2DNoReuse(:, 1), throughputMatD2DNoReuse(:, 2), throughputMatD2DNoReuse(:, 3), '--v');
+errorbar(N, throughputMatCellNoReuse(:, 1), throughputMatCellNoReuse(:, 2), throughputMatCellNoReuse(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatD2DNoReuse(:, 1), throughputMatD2DNoReuse(:, 2), throughputMatD2DNoReuse(:, 3), '--v', 'LineWidth', 2);
 
-errorbar(N + 1, throughputMatCellRandReuse(:, 1), throughputMatCellRandReuse(:, 2), throughputMatCellRandReuse(:, 3), '--v');
-errorbar(N + 1, throughputMatD2DRandReuse(:, 1), throughputMatD2DRandReuse(:, 2), throughputMatD2DRandReuse(:, 3), '--v');
+errorbar(N, throughputMatCellRandReuse(:, 1), throughputMatCellRandReuse(:, 2), throughputMatCellRandReuse(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatD2DRandReuse(:, 1), throughputMatD2DRandReuse(:, 2), throughputMatD2DRandReuse(:, 3), '--v', 'LineWidth', 2);
 
-errorbar(N + 2, throughputMatD2DStaReuse(:, 1), throughputMatD2DStaReuse(:, 2), throughputMatD2DStaReuse(:, 3), '--v');
-errorbar(N + 2, throughputMatCellStaReuse(:, 1), throughputMatCellStaReuse(:, 2), throughputMatCellStaReuse(:, 3), '--v');
+errorbar(N, throughputMatD2DStaReuse(:, 1), throughputMatD2DStaReuse(:, 2), throughputMatD2DStaReuse(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatCellStaReuse(:, 1), throughputMatCellStaReuse(:, 2), throughputMatCellStaReuse(:, 3), '--v', 'LineWidth', 2);
 ylabel('sum of received bytes [B]');
-% xlabel('number of D2D VoIP pairs [#]');
+xlabel('number of full buffer pairs per type [#]');
+xticklabels(N);
 legend({'RR+NoReuse [cellular]', 'RR+NoReuse [D2D]', 'RR+RandReuse [Cellular]', 'RR+RandReuse [D2D]', 'RR+StaReuse [Cellular]', 'RR+StaReuse [D2D]'}, 'Location','northeast');
-xlim([4 8]);
 set(gca,'FontSize', 26);
 hold off;
