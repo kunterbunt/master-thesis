@@ -32,7 +32,7 @@ errorbar(N, mosMatTU(:, 1), mosMatTU(:, 2), mosMatTU(:, 3), '--v', 'LineWidth', 
 
 ylabel('Mean Opinion Score');
 xlabel('number of D2D VoIP pairs [#]');
-xticklabels(N);
+% xticklabels(N);
 legend({'Round Robin', 'Proportional Fair', 'Transferable Utility'}, 'Location','northeast');
 set(gca,'FontSize', 26);
 hold off;
