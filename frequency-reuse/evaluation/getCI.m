@@ -5,7 +5,7 @@ function CI = getCI(sampleVec, p)
     sampleDeviation = std(sampleVec);
 
     t = sampleSize - 1;
-    z = tinv(p, t); 
+    z = tinv(p, t);
 
     CI=[sampleMean - ((z * sampleDeviation) / sqrt(sampleSize)), sampleMean + ((z * sampleDeviation) / sqrt(sampleSize)), (z * sampleDeviation) / sqrt(sampleSize)];
 end

@@ -1,5 +1,5 @@
-reps = 10;
-N = 5:5:15;
+reps = 5;
+N = 10:10:30;
 filenamesD2DNoReuse = {};
 filenamesCellNoReuse = {};
 
@@ -12,14 +12,14 @@ filenamesCellStaReuse = {};
 for i=1:size(N,2)
     n = N(i);
     for rep=0:(reps - 1)                                
-        filenamesD2DNoReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_noreuse/n', int2str(n), '_rep', int2str(rep), '.sca.d2dfulbuf')};   
-        filenamesCellNoReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_noreuse/n', int2str(n), '_rep', int2str(rep), '.sca.cellfulbuf')};   
+        filenamesD2DNoReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_noreuse/n', int2str(n), '_rep', int2str(rep), '.sca.d2d')};   
+        filenamesCellNoReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_noreuse/n', int2str(n), '_rep', int2str(rep), '.sca.cell')};   
         
-        filenamesD2DRandReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_random/n', int2str(n), '_rep', int2str(rep), '.sca.d2dfulbuf')};   
-        filenamesCellRandReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_random/n', int2str(n), '_rep', int2str(rep), '.sca.cellfulbuf')};   
+        filenamesD2DRandReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_random/n', int2str(n), '_rep', int2str(rep), '.sca.d2d')};   
+        filenamesCellRandReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_random/n', int2str(n), '_rep', int2str(rep), '.sca.cell')};   
         
-        filenamesD2DStaReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_sta/n', int2str(n), '_rep', int2str(rep), '.sca.d2dfulbuf')};   
-        filenamesCellStaReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_sta/n', int2str(n), '_rep', int2str(rep), '.sca.cellfulbuf')};   
+        filenamesD2DStaReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_sta/n', int2str(n), '_rep', int2str(rep), '.sca.d2d')};   
+        filenamesCellStaReuse(i, rep+1) = {strcat('../../results/stackelcompare_rr_sta/n', int2str(n), '_rep', int2str(rep), '.sca.cell')};   
     end    
 end
 
@@ -44,19 +44,26 @@ for i=1:size(N, 2)
 end
 
 figure;
-% subplot(2,1,1);
+subplot(2,1,1);
 hold on;
-errorbar(N, throughputMatCellNoReuse(:, 1), throughputMatCellNoReuse(:, 2), throughputMatCellNoReuse(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, throughputMatD2DNoReuse(:, 1), throughputMatD2DNoReuse(:, 2), throughputMatD2DNoReuse(:, 3), '--v', 'LineWidth', 2);
-
-errorbar(N, throughputMatCellRandReuse(:, 1), throughputMatCellRandReuse(:, 2), throughputMatCellRandReuse(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, throughputMatD2DRandReuse(:, 1), throughputMatD2DRandReuse(:, 2), throughputMatD2DRandReuse(:, 3), '--v', 'LineWidth', 2);
-
-errorbar(N, throughputMatD2DStaReuse(:, 1), throughputMatD2DStaReuse(:, 2), throughputMatD2DStaReuse(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, throughputMatCellStaReuse(:, 1), throughputMatCellStaReuse(:, 2), throughputMatCellStaReuse(:, 3), '--v', 'LineWidth', 2);
 ylabel('sum of received bytes [B]');
+title('Cellular users');
+errorbar(N, throughputMatCellNoReuse(:, 1), throughputMatCellNoReuse(:, 2), throughputMatCellNoReuse(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatCellRandReuse(:, 1), throughputMatCellRandReuse(:, 2), throughputMatCellRandReuse(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatCellStaReuse(:, 1), throughputMatCellStaReuse(:, 2), throughputMatCellStaReuse(:, 3), '--v', 'LineWidth', 2);
+legend({'no reuse', 'random reuse', 'Stackelberg reuse'});
+set(gca,'FontSize', 26);
+
+subplot(2,1,2);
+hold on;
+ylabel('sum of received bytes [B]');
+title('D2D users');
+errorbar(N, throughputMatD2DNoReuse(:, 1), throughputMatD2DNoReuse(:, 2), throughputMatD2DNoReuse(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatD2DRandReuse(:, 1), throughputMatD2DRandReuse(:, 2), throughputMatD2DRandReuse(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatD2DStaReuse(:, 1), throughputMatD2DStaReuse(:, 2), throughputMatD2DStaReuse(:, 3), '--v', 'LineWidth', 2);
+
 xlabel('number of full buffer pairs per type [#]');
-xticklabels(N);
-legend({'RR+NoReuse [cellular]', 'RR+NoReuse [D2D]', 'RR+RandReuse [Cellular]', 'RR+RandReuse [D2D]', 'RR+StaReuse [Cellular]', 'RR+StaReuse [D2D]'}, 'Location','northeast');
+% xticklabels(N);
+legend({'no reuse', 'random reuse', 'Stackelberg reuse'});
 set(gca,'FontSize', 26);
 hold off;
