@@ -1,4 +1,4 @@
-reps = 10;
+reps = 30;
 N = 6:2:12;
 filenamesD2DNoReuse = {};
 filenamesCellNoReuse = {};
@@ -67,7 +67,7 @@ errorbar(N, throughputMatCellStaReuse(:, 1), throughputMatCellStaReuse(:, 2), th
 errorbar(N, throughputMatCellStaReuseTx(:, 1), throughputMatCellStaReuseTx(:, 2), throughputMatCellStaReuseTx(:, 3), '--v', 'LineWidth', 2);
 xticks(N);
 % xticklabels(N);
-legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse with p_i setting'}, 'Location', 'southwest');
+legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse w/ p_i'}, 'Location', 'southwest', 'FontSize', 18);
 set(gca,'FontSize', 26);
 
 subplot(2,1,2);
@@ -83,6 +83,7 @@ errorbar(N, throughputMatD2DStaReuseTx(:, 1), throughputMatD2DStaReuseTx(:, 2), 
 xlabel('number of VoIP users per type [#]');
 xticks(N);
 % xticklabels(N);
-legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse with p_i setting'}, 'Location', 'southwest');
 set(gca,'FontSize', 26);
+legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse w/ p_i'}, 'Location', 'southwest', 'FontSize', 18);
+
 hold off;
