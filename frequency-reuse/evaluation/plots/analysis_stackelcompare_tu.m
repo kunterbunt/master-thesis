@@ -12,6 +12,9 @@ filenamesCellStaReuse = {};
 filenamesD2DStaReuseTx = {};
 filenamesCellStaReuseTx = {};
 
+filenamesD2DModdedSta = {};
+filenamesCellModdedSta = {};
+
 for i=1:size(N,2)
     n = N(i);
     for rep=0:(reps - 1)                                
@@ -26,6 +29,9 @@ for i=1:size(N,2)
         
         filenamesD2DStaReuseTx(i, rep+1) = {strcat('../../results/stackelcompare_tu_sta_tx/n', int2str(n), '_rep', int2str(rep), '.sca.d2d')};   
         filenamesCellStaReuseTx(i, rep+1) = {strcat('../../results/stackelcompare_tu_sta_tx/n', int2str(n), '_rep', int2str(rep), '.sca.cell')};   
+        
+        filenamesD2DModdedSta(i, rep+1) = {strcat('../../results/stackelcompare_tu_modded/n', int2str(n), '_rep', int2str(rep), '.sca.d2d')};   
+        filenamesCellModdedSta(i, rep+1) = {strcat('../../results/stackelcompare_tu_modded/n', int2str(n), '_rep', int2str(rep), '.sca.cell')};   
     end    
 end
 
@@ -40,6 +46,9 @@ throughputMatCellStaReuse = zeros(size(N, 2), 3);
 
 throughputMatD2DStaReuseTx = zeros(size(N, 2), 3);
 throughputMatCellStaReuseTx = zeros(size(N, 2), 3);
+
+throughputMatD2DModdedSta = zeros(size(N, 2), 3);
+throughputMatCellModdedSta = zeros(size(N, 2), 3);
  
 for i=1:size(N, 2)
     [throughputMatD2DNoReuse(i, 1), throughputMatD2DNoReuse(i, 2), throughputMatD2DNoReuse(i, 3)] = getMeanVec(filenamesD2DNoReuse(i,:));    
@@ -53,6 +62,9 @@ for i=1:size(N, 2)
     
     [throughputMatD2DStaReuseTx(i, 1), throughputMatD2DStaReuseTx(i, 2), throughputMatD2DStaReuseTx(i, 3)] = getMeanVec(filenamesD2DStaReuseTx(i,:));    
     [throughputMatCellStaReuseTx(i, 1), throughputMatCellStaReuseTx(i, 2), throughputMatCellStaReuseTx(i, 3)] = getMeanVec(filenamesCellStaReuseTx(i,:));    
+    
+    [throughputMatD2DModdedSta(i, 1), throughputMatD2DModdedSta(i, 2), throughputMatD2DModdedSta(i, 3)] = getMeanVec(filenamesD2DModdedSta(i,:));    
+    [throughputMatCellModdedSta(i, 1), throughputMatCellModdedSta(i, 2), throughputMatCellModdedSta(i, 3)] = getMeanVec(filenamesCellModdedSta(i,:));    
 end
 
 figure;
@@ -65,9 +77,10 @@ errorbar(N, throughputMatCellNoReuse(:, 1), throughputMatCellNoReuse(:, 2), thro
 errorbar(N, throughputMatCellRandReuse(:, 1), throughputMatCellRandReuse(:, 2), throughputMatCellRandReuse(:, 3), '--v', 'LineWidth', 2);
 errorbar(N, throughputMatCellStaReuse(:, 1), throughputMatCellStaReuse(:, 2), throughputMatCellStaReuse(:, 3), '--v', 'LineWidth', 2);
 errorbar(N, throughputMatCellStaReuseTx(:, 1), throughputMatCellStaReuseTx(:, 2), throughputMatCellStaReuseTx(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatCellModdedSta(:, 1), throughputMatCellModdedSta(:, 2), throughputMatCellModdedSta(:, 3), '--v', 'LineWidth', 2);
 xticks(N);
 % xticklabels(N);
-legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse w/ p_i'}, 'Location', 'southwest', 'FontSize', 18);
+legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse w/ p_i', 'novel scheduler'}, 'Location', 'southwest', 'FontSize', 18);
 set(gca,'FontSize', 26);
 
 subplot(2,1,2);
@@ -79,11 +92,12 @@ errorbar(N, throughputMatD2DNoReuse(:, 1), throughputMatD2DNoReuse(:, 2), throug
 errorbar(N, throughputMatD2DRandReuse(:, 1), throughputMatD2DRandReuse(:, 2), throughputMatD2DRandReuse(:, 3), '--v', 'LineWidth', 2);
 errorbar(N, throughputMatD2DStaReuse(:, 1), throughputMatD2DStaReuse(:, 2), throughputMatD2DStaReuse(:, 3), '--v', 'LineWidth', 2);
 errorbar(N, throughputMatD2DStaReuseTx(:, 1), throughputMatD2DStaReuseTx(:, 2), throughputMatD2DStaReuseTx(:, 3), '--v', 'LineWidth', 2);
+errorbar(N, throughputMatD2DModdedSta(:, 1), throughputMatD2DModdedSta(:, 2), throughputMatD2DModdedSta(:, 3), '--v', 'LineWidth', 2);
 
 xlabel('number of VoIP users per type [#]');
 xticks(N);
 % xticklabels(N);
 set(gca,'FontSize', 26);
-legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse w/ p_i'}, 'Location', 'southwest', 'FontSize', 18);
+legend({'TU + no reuse', 'TU + random reuse', 'TU + Stackelberg reuse', 'TU + Stackelberg reuse w/ p_i', 'novel scheduler'}, 'Location', 'southwest', 'FontSize', 18);
 
 hold off;
