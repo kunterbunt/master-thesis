@@ -878,11 +878,11 @@ figure;
 hold on;
 yyaxis left;
 ylabel('channel gain [linear]');
-errorbar(distanceVec, gainD2DMeanVec, gainD2DNegVec, gainD2DPosVec);
+errorbar(distanceVec, gainD2DMeanVec, gainD2DNegVec, gainD2DPosVec, 'LineWidth', 2);
 
 yyaxis right;
 ylabel('channel gain [dB]');
-errorbar(distanceVec, gainD2DMeandBVec, gainD2DNegdBVec, gainD2DPosdBVec);
+errorbar(distanceVec, gainD2DMeandBVec, gainD2DNegdBVec, gainD2DPosdBVec, 'LineWidth', 2);
 %errorbar(distanceVec, gainCellMeanVec, gainCellNegVec, gainCellPosVec);
 %errorbar(distanceVec, gainCellEnbMeanVec, gainCellEnbNegVec, gainCellEnbPosVec);
 %errorbar(distanceVec, gainEnbCellMeanVec, gainEnbCellNegVec, gainEnbCellPosVec);

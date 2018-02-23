@@ -5,7 +5,7 @@ function plot_sum_rcvd_bytes(directory, numReps)
     for i = 1:1:1
         reps = [];
         for j = 0:(numReps-1)
-            filename = strcat(directory, 'rep', int2str(j), '.sca.parsed');
+            filename = strcat(directory, 'rep', int2str(j), '.sca.parsed')
             receiverBytesVec = csvread(filename);            
             reps = [reps; sum(receiverBytesVec)];
         end        

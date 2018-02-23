@@ -31,9 +31,9 @@ figure;
 hold on;
 
 p = 0:0.1:1.0;
-index = 2:11; % p=0.0 wasn't working as I had assumed that to turn it off. So it's the same as p=1.0.
+index = 2:11;
 %errorbar(p(index), sumBytesVecCell(index), errorVecNegCell(index), errorVecPosCell(index));
-errorbar(p(index), sumBytesVecD2D(index), errorVecNegD2D(index), errorVecPosD2D(index));
+errorbar(p(index), sumBytesVecD2D(index), errorVecNegD2D(index), errorVecPosD2D(index), 'LineWidth', 2);
 
 xlabel('p')
 ylabel('sum throughput [B]')

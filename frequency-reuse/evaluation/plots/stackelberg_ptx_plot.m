@@ -38,16 +38,15 @@ xlabel('g_{ke}');
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 
+subplot(2,2,3);
+plot(gRange, powerVec_gie);
+xlabel('g_{ie}');
+set(gca,'FontSize', 26);
+set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
+
 subplot(2,2,4);
 plot(gRange, powerVec_gii);
 ylabel('p_i [mW]');
 xlabel('g_{ii}');
-set(gca,'FontSize', 26);
-set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
-
-subplot(2,2,3);
-plot(gRange, powerVec_gie);
-% ylabel('p_i [mW]');
-xlabel('g_{ie}');
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
