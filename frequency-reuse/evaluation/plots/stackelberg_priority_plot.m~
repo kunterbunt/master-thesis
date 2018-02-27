@@ -19,7 +19,8 @@ plot(gVec(2:end), prio_giiVec(2:end));
 ylim([0 0.5]);
 ylabel('Priority');
 xlabel('g_{ii}');
-xticklabels({'10^{-9}', '', '10^{-6}'});
+str9 = '$10^-9$','Interpreter','latex'
+xticklabels({'$10^-9$','Interpreter','latex', '', '10^-6'});
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 
@@ -34,11 +35,10 @@ set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 % yyaxis left;
 subplot(2,2,2);
 plot(gVec(2:end), prio_gkiVec(2:end));
-ylim([-0.001 0.5]);
+ylim([0 0.5]);
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 xlabel('g_{ki}');
-xticklabels({'10^{-9}', '', '10^{-6}'});
 
 % yyaxis right;
 % plot(gVec, p_gkiVec);
@@ -54,7 +54,6 @@ ylim([0 0.5]);
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 xlabel('g_{ie}');
-xticklabels({'10^{-9}', '', '10^{-6}'});
 
 % yyaxis right;
 % plot(gVec, p_gieVec);
@@ -70,7 +69,6 @@ ylim([0 0.5]);
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 xlabel('g_{ke}');
-xticklabels({'10^{-9}', '', '10^{-6}'});
 
 % yyaxis right;
 % plot(gVec(2:end), p_gkeVec(2:end));
