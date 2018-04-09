@@ -9,7 +9,7 @@ beta = 5;
 price = 10000;
 
 % Plot to channel gains.
-gRange = 1e-8:1e-9:1e-6;
+gRange = 1e-8:1e-9:1e-4;
 utilVec_gke = [];
 utilVec_gki = [];
 utilVec_gie = [];
@@ -27,6 +27,13 @@ for i=1:size(gRange, 2)
     utilVec_gii(end+1) = stackelberg_utility_leader(p_k, g_ke, g_ki, g_ie, g, N, beta, price);
 end
 
+% utilVec_price = [];
+% priceRange = 0:1:10;
+% for i=1:size(priceRange, 2)
+%     price2 = priceRange(i);
+%     utilVec_price(end+1) = stackelberg_utility_leader(p_k, g_ke, g_ki, g_ie, g_ii, N, beta, price2);
+% end
+
 figure;
 hold on;
 % plot(range, utilVec);
@@ -39,6 +46,7 @@ hold on;
 subplot(2, 2, 1);
 plot(gRange, utilVec_gke);
 xlabel('g_{ke}');
+xticklabels({'10^{-8}', '', '10^{-4}'});
 ylabel('utility u_k');
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
@@ -47,6 +55,7 @@ hold off;
 subplot(2, 2, 2);
 plot(gRange, utilVec_gki);
 xlabel('g_{ki}');
+xticklabels({'10^{-8}', '', '10^{-4}'});
 % ylabel('leader utility');
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
@@ -54,14 +63,23 @@ set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 subplot(2, 2, 3);
 plot(gRange, utilVec_gie);
 xlabel('g_{ie}');
+xticklabels({'10^{-8}', '', '10^{-4}'});
 ylabel('utility u_k');
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 
 subplot(2, 2, 4);
-plot(gRange(10:end), utilVec_gii(10:end));
+plot(gRange, utilVec_gii);
 xlabel('g_{ii}');
+xticklabels({'10^{-8}', '', '10^{-4}'});
 % ylabel('leader utility');
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 hold off;
+
+% figure;
+% plot(priceRange, utilVec_price);
+% xlabel('\alpha_{k}');
+% ylabel('utility u_k');
+% set(gca,'FontSize', 26);
+% set(findall(gca, 'Type', 'Line'),'LineWidth', 2);

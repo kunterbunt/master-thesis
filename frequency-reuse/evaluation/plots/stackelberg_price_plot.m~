@@ -52,7 +52,7 @@ subplot(2,2,3);
 plot(gRange, priceVec_gie);
 ylabel('\alpha_k');
 xlabel('g_{ie}');
-xticklabels({'10^{-8}', '', '10^{-6}'});
+xticklabels({'10^{-9}', '', '10^{-6}'});
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 
@@ -60,7 +60,7 @@ subplot(2,2,4);
 plot(gRange, priceVec_gii);
 ylabel('\alpha_k');
 xlabel('g_{ii}');
-xticklabels({'10^{-8}', '', '10^{-6}'});
+xticklabels({'10^{-9}', '', '10^{-6}'});
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 

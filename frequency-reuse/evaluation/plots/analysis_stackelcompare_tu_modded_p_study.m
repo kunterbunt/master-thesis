@@ -42,7 +42,7 @@ errorbar(pVec, throughputMatD2D(:, 1), throughputMatD2D(:, 2), throughputMatD2D(
 % errorbar(pVec, throughputMatCombined(:, 1), throughputMatCombined(:, 2), throughputMatCombined(:, 3), ':', 'LineWidth', 2);
 plot(pVec, throughputMatCombined(:, 1), ':', 'LineWidth', 2, 'Color', 'black');
 xticks(pVec);
-xlabel('D2D penalty p');
+xlabel('p');
 legend({'Cellular VoIP users', 'D2D VoIP users', 'both'}, 'Location', 'northeast', 'FontSize', 26);
 set(gca,'FontSize', 26);
 hold off;
@@ -53,7 +53,7 @@ errorbar(pVec, numTraditionalGamesMat(:, 1), numTraditionalGamesMat(:, 2), numTr
 errorbar(pVec, numReverseGamesMat(:, 1), numReverseGamesMat(:, 2), numReverseGamesMat(:, 3), '--v', 'LineWidth', 2);
 errorbar(pVec, numD2DGamesMat(:, 1), numD2DGamesMat(:, 2), numD2DGamesMat(:, 3), '--v', 'LineWidth', 2);
 xticks(pVec);
-xlabel('D2D penalty p');
+xlabel('p');
 ylabel('Count [#]');
 legend({'traditional games', 'reverse games', 'D2D games'}, 'Location', 'northeast', 'FontSize', 26);
 set(gca,'FontSize', 26);

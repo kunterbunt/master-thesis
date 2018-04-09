@@ -81,7 +81,7 @@ errorbar(N, throughputMatCellModdedSta_p075(:, 1), throughputMatCellModdedSta_p0
 errorbar(N, throughputMatCellModdedSta_p1(:, 1), throughputMatCellModdedSta_p1(:, 2), throughputMatCellModdedSta_p1(:, 3), '--v', 'LineWidth', 2);
 xticks(N);
 ylim([3.5 4.5]);
-legend({'p=0', 'p=0.25', 'p=0.5', 'p=0.75', 'p=1'}, 'Location', 'southwest', 'FontSize', 18);
+legend({'p=0', 'p=0.25', 'p=0.5', 'p=0.75', 'p=1'}, 'Location', 'northeast', 'FontSize', 18);
 set(gca,'FontSize', 26);
 
 subplot(2,1,2);
@@ -99,6 +99,6 @@ xlabel('number of VoIP users per type [#]');
 xticks(N);
 % xticklabels(N);
 set(gca,'FontSize', 26);
-legend({'p=0', 'p=0.25', 'p=0.5', 'p=0.75', 'p=1'}, 'Location', 'southwest', 'FontSize', 18);
+legend({'p=0', 'p=0.25', 'p=0.5', 'p=0.75', 'p=1'}, 'Location', 'northeast', 'FontSize', 18);
 
 hold off;

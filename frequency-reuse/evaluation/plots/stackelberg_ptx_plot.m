@@ -26,27 +26,32 @@ figure;
 hold on;
 subplot(2,2,2);
 plot(gRange, powerVec_gki);
-ylabel('p_i [mW]');
+ylabel('$\hat{p}_i$ [mW]', 'Interpreter', 'latex');
 xlabel('g_{ki}');
+xticklabels({'10^{-8}', '', '10^{-6}'});
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 
 subplot(2,2,1);
 plot(gRange, powerVec_gke);
-ylabel('p_i [mW]');
+ylabel('$\hat{p}_i$ [mW]', 'Interpreter', 'latex');
 xlabel('g_{ke}');
+xticklabels({'10^{-8}', '', '10^{-6}'});
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 
 subplot(2,2,3);
 plot(gRange, powerVec_gie);
 xlabel('g_{ie}');
+xticklabels({'10^{-8}', '', '10^{-6}'});
+ylabel('$\hat{p}_i$ [mW]', 'Interpreter', 'latex');
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
 
 subplot(2,2,4);
 plot(gRange, powerVec_gii);
-ylabel('p_i [mW]');
+ylabel('$\hat{p}_i$ [mW]', 'Interpreter', 'latex');
 xlabel('g_{ii}');
+xticklabels({'10^{-8}', '', '10^{-6}'});
 set(gca,'FontSize', 26);
 set(findall(gca, 'Type', 'Line'),'LineWidth', 2);
