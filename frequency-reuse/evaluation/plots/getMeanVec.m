@@ -5,7 +5,7 @@ function [meanVec, errorVecNeg, errorVecPos] = getMeanVec(filenames)
     errorVecNeg = [];
     repVec = [];
     
-    for i=1:size(filenames, 2)
+    for i=1:size(filenames, 2)        
         receiverBytesVec = csvread(char(filenames(i)));
         repVec = [repVec; nanmean(receiverBytesVec)];
     end
