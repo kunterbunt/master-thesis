@@ -1,5 +1,7 @@
+% set(0,'defaulttextinterpreter','latex');
+
 reps = 15;
-N = 4:2:10;
+N = 6:2:10;
 filenamesRR = {};
 filenamesPF = {};
 filenamesTU = {};
@@ -47,31 +49,42 @@ for i=1:size(N, 2)
     [fulbufMatSTA(i, 1), fulbufMatSTA(i, 2), fulbufMatSTA(i, 3)] = getMeanVec(filenamesSTA_fulbuf(i,:));
 end
 
-figure;
-subplot(2, 1, 1);
+h = figure;
+% subplot(2, 1, 1);
 hold on;
-% title('3 video streamers performance');
-ylabel({'throughput sum';'3 video streamers [B]'});
-errorbar(N, vidMatRR(:, 1), vidMatRR(:, 2), vidMatRR(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, vidMatPF(:, 1), vidMatPF(:, 2), vidMatPF(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, vidMatTU(:, 1), vidMatTU(:, 2), vidMatTU(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, vidMatSTA(:, 1), vidMatSTA(:, 2), vidMatSTA(:, 3), '--v', 'LineWidth', 2);
+ylabel({'throughput sum of';'three video streamers [B]'});
+xlabel('number of full buffer users n');
+errorbar(N, vidMatRR(:, 1), vidMatRR(:, 2), vidMatRR(:, 3), '--o');
+errorbar(N, vidMatPF(:, 1), vidMatPF(:, 2), vidMatPF(:, 3), '--*');
+errorbar(N, vidMatTU(:, 1), vidMatTU(:, 2), vidMatTU(:, 3), '--v');
+errorbar(N, vidMatSTA(:, 1), vidMatSTA(:, 2), vidMatSTA(:, 3), '--^');
 % legend({'Round Robin', 'Proportional Fair', 'Transferable Utility'}, 'Location','northeast');
-legend({'Round Robin', 'Proportional Fair', 'Proposed (no FRR)' 'Proposed (with FRR)'}, 'Location','northeast');
-xticklabels({'4', '', '6', '', '8', '', '10'});
-set(gca,'FontSize', 26);
+legend({'Round Robin', 'Proportional Fair', 'Proposed (no FRR)' 'Proposed (with FRR)'}, 'Position', [0.795 0.8 0 0], 'Interpreter','latex');
+legend('boxoff')
+% xticklabels({'4', '', '6', '', '8', '', '10'});
+xticks(N);
+set(gca,'FontSize', 10);
+h.PaperUnits = 'inches';
+h.PaperSize = [3.45 2];
+h.PaperPosition = [0 0 3.45 2];
 
-subplot(2, 1, 2);
+hold off;
+
+% subplot(2, 1, 2);
+h = figure;
 hold on;
-% title('n full buffer users performance');
-ylabel({'throughput sum';'n full buffer users [B]'});
-xlabel('number of D2D full-buffer pairs n [#]');
-errorbar(N, fulbufMatPF(:, 1), fulbufMatPF(:, 2), fulbufMatPF(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, fulbufMatRR(:, 1), fulbufMatRR(:, 2), fulbufMatRR(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, fulbufMatTU(:, 1), fulbufMatTU(:, 2), fulbufMatTU(:, 3), '--v', 'LineWidth', 2);
-errorbar(N, fulbufMatSTA(:, 1), fulbufMatSTA(:, 2), fulbufMatSTA(:, 3), '--v', 'LineWidth', 2);
-% legend({'Round Robin', 'Proportional Fair', 'Transferable Utility'}, 'Location','northeast');
-legend({'Round Robin', 'Proportional Fair', 'Proposed (no FRR)', 'Proposed (with FRR)'}, 'Location','northeast');
-xticklabels({'4', '', '6', '', '8', '', '10'});
-set(gca,'FontSize', 26);
+ylabel({'throughput sum of';'n full buffer users [B]'});
+xlabel('number of full buffer users n');
+errorbar(N, fulbufMatPF(:, 1), fulbufMatPF(:, 2), fulbufMatPF(:, 3), '--o');
+errorbar(N, fulbufMatRR(:, 1), fulbufMatRR(:, 2), fulbufMatRR(:, 3), '--*');
+errorbar(N, fulbufMatTU(:, 1), fulbufMatTU(:, 2), fulbufMatTU(:, 3), '--v');
+errorbar(N, fulbufMatSTA(:, 1), fulbufMatSTA(:, 2), fulbufMatSTA(:, 3), '--^');
+legend({'Round Robin', 'Proportional Fair', 'Proposed (no FRR)', 'Proposed (with FRR)'}, 'Position', [0.795 0.8 0 0], 'Interpreter','latex');
+legend('boxoff')
+% xticklabels({'4', '', '6', '', '8', '', '10'});
+xticks(N);
+set(gca,'FontSize', 10);
+h.PaperUnits = 'inches';
+h.PaperSize = [3.45 2];
+h.PaperPosition = [0 0 3.45 2];
 hold off;
