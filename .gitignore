@@ -4,7 +4,7 @@
 out*
 .cproject*
 .settings*
+.qtenvrc
 frequency-reuse/frequency-reuse
 frequency-reuse/Makefile
 frequency-reuse/schedule_record
-
