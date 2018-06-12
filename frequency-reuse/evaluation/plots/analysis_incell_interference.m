@@ -2,19 +2,23 @@
 reps = 20;
 dVec = 405:5:500;
 location = 400;
-filenames = {};
+filenames_urban = {};
+filenames_fspl = {};
 
 for i=1:size(dVec,2)
     d = dVec(i);
     for rep=0:(reps - 1)                                
-        filenames(i, rep+1) = {strcat('../../results/testInCellInterferenceAnalytical/d', num2str(d), '-rep', int2str(rep), '.sca.int')};                   
+        filenames_urban(i, rep+1) = {strcat('../../results/testInCellInterferenceAnalytical/urban_macrocell/d', num2str(d), '-rep', int2str(rep), '.sca.int')};                   
+        filenames_fspl(i, rep+1) = {strcat('../../results/testInCellInterferenceAnalytical/free_space/d', num2str(d), '-rep', int2str(rep), '.sca.int')};                   
     end    
 end
 
-interferenceMat = zeros(size(dVec, 2), 3);
+interferenceMat_urban = zeros(size(dVec, 2), 3);
+interferenceMat_fspl = zeros(size(dVec, 2), 3);
  
 for i=1:size(dVec, 2)
-    [interferenceMat(i, 1), interferenceMat(i, 2), interferenceMat(i, 3)] = getMeanVec(filenames(i,:));    
+    [interferenceMat_urban(i, 1), interferenceMat_urban(i, 2), interferenceMat_urban(i, 3)] = getMeanVec(filenames_urban(i,:));    
+    [interferenceMat_fspl(i, 1), interferenceMat_fspl(i, 2), interferenceMat_fspl(i, 3)] = getMeanVec(filenames_fspl(i,:));    
 end
 
 %% Obtain analytical expectation.
@@ -41,13 +45,14 @@ hold on;
 
 % yyaxis left;
 ylabel('in-cell interference [dB]');
-errorbar(dVec - location, 10*log10(interferenceMat(:, 1)), 10*log10(interferenceMat(:, 2)), 10*log10(interferenceMat(:, 3)), '--v', 'LineWidth', 2);
-plot(dVec - location, interferenceVec);
+errorbar(dVec - location, 10*log10(interferenceMat_urban(:, 1)), 10*log10(interferenceMat_urban(:, 2)), 10*log10(interferenceMat_urban(:, 3)), '--v', 'LineWidth', 2, 'Color', 'blue');
+errorbar(dVec - location, 10*log10(interferenceMat_fspl(:, 1)), 10*log10(interferenceMat_fspl(:, 2)), 10*log10(interferenceMat_fspl(:, 3)), '--v', 'LineWidth', 2, 'Color', 'magenta');
+plot(dVec - location, interferenceVec, 'Color', 'red');
 
 % yyaxis right;
 % plot(dVec - location, sinrVec);
 
-xlabel('distance [m]');
-legend({'simulation', 'analytical'}, 'Location', 'northeast', 'FontSize', 26);
+xlabel('distance between pairs [m]');
+legend({'simulation (urban macrocell)', 'simulation (FSPL)', 'analytical (FSPL)'}, 'Location', 'northeast', 'FontSize', 26);
 set(gca,'FontSize', 26);
 hold off;
