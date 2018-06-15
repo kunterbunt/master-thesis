@@ -16,14 +16,17 @@ p_rcvd = p_tx - att_link;
 interferenceVec = [];
 sinrVec = [];
 for i = 1 : size(num_interferers, 2)
-    interferenceVec(i) = p_tx;
+    n = num_interferers(i);
+    x = xVec(i);
+    y = yVec(i);
+    d = sqrt((receiver_x - x)^2 + (receiver_y - y)^2);
+    interferenceVec(i) = 0;
     for j = 1 : i
-        x = xVec(i);
-        y = yVec(i);
-        d = sqrt((receiver_x - x)^2 + (receiver_y - y)^2);
-        attenuation = getPathAttenuation(d / 1000, frequency);
-        interferenceVec(i) = interferenceVec(i) - attenuation;        
-    end            
+        
+    end
+    att_interference = getPathAttenuation(d / 1000, frequency);
+    interferenceVec(i) = p_tx - att_interference;        
+    sinrVec(i) = p_rcvd / (interferenceVec(i) + N);
 end
 
 % Plot. 
@@ -31,8 +34,6 @@ figure;
 hold on;
 ylabel('in-cell interference [dB]');
 plot(num_interferers, interferenceVec, 'Color', 'red');
-xlabel('number of interfering nodes n');
-xticks(1:5);
-legend('analytical');
+xlabel('distance between pairs [m]');
 set(gca,'FontSize', 26);
 hold off;

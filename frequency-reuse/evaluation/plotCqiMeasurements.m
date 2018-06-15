@@ -114,7 +114,7 @@ e = errorbar(10:10:150, meanCqi, errorCqiNeg, errorCqiPos, 'LineWidth', 2);
 e.LineStyle = '--';
 e.Marker = 'x';
 e.MarkerSize = 8;
-title('Path attenuation, SINR and CQI over increasing distance')
+%title('Path attenuation, SINR and CQI over increasing distance')
 xlabel('distance between transmitter and receiver [m]')
 ylabel('CQI')
 yyaxis right
@@ -122,10 +122,10 @@ ylabel('dB')
 e = errorbar(10:10:150, meanSinr, errorSinrNeg, errorSinrPos, 'LineWidth', 2);
 e.Marker = 'x';
 e.MarkerSize = 8;
-e = errorbar(10:10:150, meanAtt, errorAttNeg, errorAttPos, 'LineWidth', 2);
+e = errorbar(10:10:150, -1 * meanAtt, errorAttNeg, errorAttPos, 'LineWidth', 2);
 e.Marker = 'x';
 e.MarkerSize = 8;
-e = plot(10:10:150, theoreticalAtts, 'LineWidth', 2);
+e = plot(10:10:150, -1 * theoreticalAtts, 'LineWidth', 2);
 e.Marker = 'x';
 e.MarkerSize = 8;
 legend('CQI', 'SINR', 'Attenuation', 'FSPL')
