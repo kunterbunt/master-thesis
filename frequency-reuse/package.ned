@@ -1,5 +1,6 @@
 package test_oracle2.simulations;
 
+import demo.LRE;
 import inet.networklayer.configurator.ipv4.IPv4NetworkConfigurator;
 import inet.networklayer.ipv4.RoutingTableRecorder;
 import inet.node.ethernet.Eth10G;
@@ -28,7 +29,7 @@ network FrequencyNetwork
         int numUeCellRx_CBR = default(0);
         int numUeCellTx_FULBUF = default(0);
         int numUeCellRx_FULBUF = default(0);
-        
+
         int numUeD2DTx_FTP = default(0);
         int numUeD2DRx_FTP = default(0);
         int numUeD2DTx_VoIP = default(0);
@@ -115,28 +116,31 @@ network FrequencyNetwork
         }
         ueCellRx_CBR[numUeCellRx_CBR]: Ue {
             @display("p=123.13125,314.66876;i=device/cellphone");
-        }        
+        }
 
-		ueD2DTx_CBR[numUeD2DTx_CBR]: Ue {
+        ueD2DTx_CBR[numUeD2DTx_CBR]: Ue {
             @display("p=694.0125,421.63126;i=device/cellphone");
         }
         ueD2DRx_CBR[numUeD2DRx_CBR]: Ue {
             @display("p=694.0125,296.0125;i=device/cellphone");
-        }        
-        
+        }
+
         ueCellTx_FULBUF[numUeCellTx_FULBUF]: Ue {
             @display("p=62.1875,421.63126;i=device/cellphone");
         }
         ueCellRx_FULBUF[numUeCellRx_FULBUF]: Ue {
             @display("p=62.1875,314.66876;i=device/cellphone");
-        }        
+        }
 
         ueD2DTx_FULBUF[numUeD2DTx_FULBUF]: Ue {
             @display("p=1093.2562,296.0125;i=device/cellphone");
         }
         ueD2DRx_FULBUF[numUeD2DRx_FULBUF]: Ue {
             @display("p=1093.2562,421.63126;i=device/cellphone");
-        }        
+        }
+        lre: LRE {
+            @display("p=1400.58,73.417496");
+        }
     connections:
         router.pppg++ <--> Eth10G <--> pgw.filterGate;
         pgw.pppg++ <--> Eth10G <--> eNodeB.ppp;

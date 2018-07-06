@@ -4,6 +4,7 @@
 	<comment></comment>
 	<projects>
 		<project>inet</project>
+		<project>lre-algorithm</project>
 		<project>simulte</project>
 	</projects>
 	<buildSpec>
