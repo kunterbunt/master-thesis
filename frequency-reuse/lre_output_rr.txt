@@ -1,0 +1,63 @@
+#  PROBE RESULTS (THIS IS A MAGIC LINE)
+# ---------------------------------------------------------------------------
+# Evaluation: DLREG
+# ---------------------------------------------------------------------------
+#  Name: DLREG
+#  Description: Equidistant
+# ---------------------------------------------------------------------------
+#  Evaluation terminated successfully!
+# ---------------------------------------------------------------------------
+#  Common Statistics 
+#  Minimum: 0.0040039
+#  Maximum: 0.9597218
+#  Trials: 94019
+#  Mean: 0.0154736
+# 
+#  Variance: 0.0002798
+#  Relative variance: 1.1684344
+#  Coefficient of variation: 1.0809414
+#  Standard deviation: 0.0167261
+#  Relative standard deviation: 1.0809414
+# 
+#  Skewness: 35.4692794
+# 
+#  2nd moment: 0.0005192
+#  3rd moment: 0.0001827
+# 
+#  Sum of all values: 1454.8147024
+#  (Sum of all values)^2: 48.8139026
+#  (Sum of all values)^3: 17.1738508
+# ---------------------------------------------------------------------------
+#  DLREG statistics
+# 
+#  lower border: 0.0040
+#  upper border: 0.0240
+#  number of intervals: 6
+#  interval size: 0.0040
+#  maximum number of samples: 100000000
+#  maximum relative error [%]: 5.0000
+# 
+#  large sample condition r - a >= 10 not enforced.
+# ---------------------------------------------------------------------------
+#  DLREG Data
+# 
+#  evaluated levels: 4
+#  Underflows: 0
+#  Overflows: 775
+# 
+# All levels completed.
+# ------------------------------------------------------------------------------------
+#                                               mean local      deviation       number of    number of
+# ordinate      abscissa        relative        correlation     from mean       trials per   transitions    relative error
+#                               error           coefficient     local c.c.      interval     per interval   within limit
+# 
+# G(x)          x               d(x)            rho(x)          sigma(x)        n(x)         t(x)
+#                                G                 G                 rho
+# 
+1.0000000           0.0040000       0.0000000       0.0000000       0.0000000   698          0                y
+0.9925760           0.0080000       0.0003044       0.0762365       0.0104512   275          640              y
+0.9896510           0.0120000       0.0003587       0.0726225       0.0088123   86387        893              y
+0.0708261           0.0160000       0.0365382       0.8107435       0.0046814   5555         1171             y
+0.0117423           0.0200000       0.0453863       0.3941541       0.0147545   329          661              y
+0.0082430           0.0240000       0.0000000       0.0000000       0.0000000   0            434              y
+# ------------------------------------------------------------------------------------
